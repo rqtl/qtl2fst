@@ -1,0 +1,135 @@
+---
+title: "Fst scan1"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Use fst_genoprob with scan1}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 5)
+```
+
+The goal is to use `fst_genoprob` object with `scan1` and other tools in `R/qtl2`.
+
+```{r}
+suppressPackageStartupMessages({
+  library(qtl2)
+  library(qtl2fst)
+})
+```
+
+```{r}
+DOex <-
+  read_cross2(
+    file.path("https://raw.githubusercontent.com/rqtl",
+              "qtl2data/master/DOex",
+              "DOex.zip"))
+```
+
+Calculate genotype probabilities and convert to allele probabilities
+
+```{r}
+pr <- calc_genoprob(DOex, error_prob=0.002)
+apr <- genoprob_to_alleleprob(pr)
+```
+
+Write fst database of pr.
+
+```{r}
+tmpdir <- tempdir()
+```
+
+```{r}
+fpr <- fst_genoprob(pr, "pr", tmpdir)
+fapr <- fst_genoprob(apr, "apr", tmpdir)
+```
+
+## Genome scan
+
+```{r}
+scan_apr <- scan1(fapr, DOex$pheno)
+```
+
+```{r}
+find_peaks(scan_apr, DOex$pmap)
+```
+
+```{r}
+plot(scan_apr, DOex$pmap)
+```
+
+```{r}
+coefs <- scan1coef(apr, DOex$pheno)
+```
+
+```{r}
+plot(coefs, DOex$pmap)
+```
+
+Plot allele effects over LOD scan.
+
+```{r}
+plot(coefs, DOex$pmap, scan1_output = scan_apr)
+```
+
+## SNP probabilities
+
+Since SNPs are in RDS, need to first download file, then read it.
+This file only has `snpinfo` for chr 2.
+
+```{r}
+file <- file.path("https://raw.githubusercontent.com/rqtl",
+                  "qtl2data/master/DOex",
+                  "c2_snpinfo.rds")
+tmpfile <- tempfile()
+download.file(file, tmpfile, quiet=TRUE)
+snpinfo <- readRDS(tmpfile)
+unlink(tmpfile)
+```
+
+Create index to non-equivalent set of SNPs.
+
+```{r}
+snpinfo <- index_snps(DOex$pmap, snpinfo)
+```
+
+Convert to snp probabilities using fst database.
+Need to pick a chromosome, or first one is chosen.
+
+```{r}
+snppr <- genoprob_to_snpprob(subset(fapr, chr = "2"), snpinfo)
+```
+
+```{r}
+object.size(snppr)
+```
+
+## Kinship calculation
+
+```{r}
+kinship <- calc_kinship(apr, "loco")
+```
+
+
+```{r}
+fkinship <- calc_kinship(fapr, "loco")
+```
+
+```{r}
+summary(c(kinship[["2"]] - fkinship[["2"]]))
+```
+
+Perform SNP association analysis.
+
+```{r}
+scan_snppr <- scan1(snppr, DOex$pheno, fkinship["2"])
+```
+
+Plot results
+
+```{r}
+plot(scan_snppr, snpinfo, drop_hilit = 1.5)
+```
