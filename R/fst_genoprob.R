@@ -140,6 +140,7 @@ dimnames.fst_genoprob <- function(x) {
 }
 
 
+# FIX_ME: add explanation
 index_chr <- function(dnames, index, index_sub=NULL) {
     lapply(dnames, function(x, index, index_sub) {
         xnames <- x[[index]]

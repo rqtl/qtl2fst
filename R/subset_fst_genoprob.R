@@ -70,6 +70,9 @@ subset_fst_genoprob <- function(x, ind=NULL, chr=NULL, mar=NULL, ...) {
 
     x
 }
+
+
+# FIX_ME: add explanation
 get_dimension <- function(ind, indID, type = "individual") {
     n_ind <- length(indID)
     if(is.logical(ind)) {

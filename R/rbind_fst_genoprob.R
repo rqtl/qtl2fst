@@ -40,6 +40,7 @@ rbind.fst_genoprob <- function(..., fbase, fdir = NULL) {
              fbase, fdir)
 }
 
+# FIX_ME: add explanation
 check_rbind <- function(args) {
     result <- args[[1]]
     # check that things match
@@ -56,6 +57,7 @@ check_rbind <- function(args) {
     }
 }
 
+# FIX_ME: add explanation
 append_ind <- function(result, i, argsi, attrs) {
     argsi <- unclass(argsi)
 

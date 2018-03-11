@@ -37,6 +37,7 @@ cbind.fst_genoprob <- function(..., fbase, fdir = NULL) {
              fbase, fdir)
 }
 
+# FIX_ME: add explanation
 bind_fst <- function(args, check_fn, append_fn, bind_fn,
                      fbase, fdir = NULL) {
 
@@ -101,6 +102,7 @@ bind_fst <- function(args, check_fn, append_fn, bind_fn,
     fst_genoprob(result, fbase, fdir)
 }
 
+# FIX_ME: add explanation
 check_cbind <- function(args) {
     result <- unclass(args[[1]])
 
@@ -115,6 +117,7 @@ check_cbind <- function(args) {
     }
 }
 
+# FIX_ME: add explanation
 append_chr <- function(result, i, argsi, attrs) {
     is_x_chr <- attr(argsi, "is_x_chr")
     argsi <- unclass(argsi)
