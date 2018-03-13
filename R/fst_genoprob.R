@@ -49,7 +49,6 @@
 #' fprobs <- fst_genoprob(probs, "grav2", dir)
 
 fst_genoprob <- function(genoprob, fbase, fdir = ".", compress=50, verbose = TRUE) {
-    cat("fdir: ", fdir, "\n")
     # Set up directory for fst objects.
     if(!dir.exists(fdir))
         stop(paste("directory", fdir, "does not exist"))
