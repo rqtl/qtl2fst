@@ -12,67 +12,76 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 5)
 ```
 
-The motivation is to reduce memory usage. Matt told us that memory is his greatest obstacle, when running QTL browsers because he cannot add more `R/plumber` workers. Also, if you have a cheap Windows laptop you cannot even open many DO `.RData` projects simply because haplotype probability object is too big.
+The motivation for the
+[qtl2feather](https://github.com/byandell/qtl2feather) package was to
+reduce memory usage by [R/qtl2](http://kbroman.org/qtl2). Matt Vincent
+reported that memory is his greatest obstacle when running QTL
+browsers, because he cannot add more [R
+plumber](https://www.rplumber.io/) workers. Also, if you have a cheap
+Windows laptop you cannot even open many DO `.RData` projects simply
+because the haplotype probability object is too big.
 
-The solution would be to store data in some database and load just a slice you need at a time. I experimented with `SQLite` but it was too slow. Then I try fst and it run fine (R script attached – crunching 1000 SNPs at a time). It just does not use `qtl2scan` effectively because the package is not prepared for that.
+The solution would be to store data in some database and load just a
+slice you need at a time. We experimented with `SQLite` but it was too
+slow (though it could possibly be optimised, perhaps via adding
+relevant indexes). Then we tried
+[feather](https://github.com/wesm/feather) and it worked fine; we
+built the idea into the package
+[qtl2feather](https://github.com/byandell/qtl2feather). Some aspects
+of R/qtl2 needed to be modified to work with it.
 
-Task: refactor this Rmd to use DOex and run some examples.
+A weakness of [feather](https://github.com/wesm/feather) is that it is
+not under active development (just a couple of commits during the last
+year). And so the present package,
+[qtl2fst](https://github.com/kbroman/fst), uses the same approach as
+[qtl2feather](https://github.com/byandell/qtl2feather) but relying on
+the [fst package](http://www.fstpackage.org). Another advantage of fst
+over feather, is that fst includes an option to write a compressed
+database; slower to read and write but uses less disk space.
 
-```{r}
-suppressPackageStartupMessages({
-  library(qtl2)
-  library(qtl2fst)
-})
+```{r, load_packages}
+library(qtl2)
+library(qtl2fst)
 ```
 
-```{r}
-DOex <-
-  read_cross2(
-    file.path("https://raw.githubusercontent.com/rqtl",
-              "qtl2data/master/DOex",
-              "DOex.zip"))
+```{r, load_DOex_data}
+DOex <- read_cross2("https://raw.githubusercontent.com/rqtl/qtl2data/master/DOex/DOex.zip")
 ```
 
-Calculate genotype probabilities and convert to allele probabilities
+Calculate genotype probabilities and convert to allele probabilities.
 
-```{r}
+```{r, calc_alleleprob}
 pr <- calc_genoprob(DOex, error_prob=0.002)
 apr <- genoprob_to_alleleprob(pr)
 ```
 
-Write fst database of pr.
+Write fst database of the genotype probabilities to a temporary
+directory; similarly for the allele probabilities.
 
-```{r}
+```{r write_fst_db}
 tmpdir <- tempdir()
-```
-
-```{r}
 fpr <- fst_genoprob(pr, "pr", tmpdir)
 fapr <- fst_genoprob(apr, "apr", tmpdir)
 ```
 
-```{r}
+List the files in the directory
+
+```{r list_files}
 list.files(tmpdir)
 ```
 
 Methods `names()` and `length()` both work properly.
 
-```{r}
+```{r, names_length_fpr}
 names(fpr)
-```
-
-```{r}
 length(fpr)
 ```
 
 Methods `dim()` and `dimnames()` give dimensions across the chromosomes.
 Notice that `fpr` has different genotypes for the `X` chromosome.
 
-```{r}
+```{r dim_fpr}
 dim(fpr)
-```
-
-```{r}
 str(dimnames(fpr))
 ```
 
@@ -81,11 +90,11 @@ str(dimnames(fpr))
 
 Selecting a chromosome causes reading from fst database and creation of an array.
 
-```{r}
+```{r, read_chromosome}
 dim(fapr[["X"]])
 ```
 
-Alternate form.
+Here's an alternate form, using `$`.
 
 ```{r}
 dim(fapr$X)
@@ -96,17 +105,17 @@ dim(fapr$X)
 Subsetting using `subset(object,ind,chr,mar)` or `[ind,chr,mar]` only adjusts the vector of
 individuals, chromosomes and markers, but does not alter the fst database.
 
-```{r}
+```{r subset_fapr}
 dim(subset(fapr, ind=1:20, chr=c("2","3")))
 ```
 
 You can also use `[]` to subset.
 
-```{r}
+```{r subset_brackets}
 dim(fapr[1:20, c("2","3")][["3"]])
 ```
 
-```{r}
+```{r other_subsetting}
 f2 <- fapr[,"2"]
 f23 <- fapr[,c("2","3")]
 fx <- fapr[,"X"]
@@ -114,61 +123,53 @@ fx <- fapr[,"X"]
 
 There is a third dimension for markers. However, be careful that if you select a subset of markers that excludes one or more chromosomes, those will be dropped.
 
-```{r}
+```{r select_markers}
 dim(subset(fapr, mar=1:30))
-```
-
-```{r}
 dim(fapr[ , , dimnames(fapr)$mar$X[1:20]])
 ```
 
 ### Binding by columns or rows.
 
 Binding by columns (chromosomes) or rows (individuals) may cause creation of a new fst database if input objects arose from different fst databases. However, if objects are subsets of the same `fst_genoprob` object, then it reuses the one fst database. Further, if objects have the same directory and file basename for their fst databases, they will be combined without creation of any new fst databases.
+
 See `example(cbind.fst_genoprob)` and `example(rbind.fst_genoprob)` with objects having distinct fst databases.
 
-```{r}
+Here's column bind (chromosomes).
+
+```{r cbind_fapr}
 newf23 <- cbind(f2,f23)
 ```
 
-Row bind.
+And here's row bind (individuals)..
 
-```{r}
+```{r rbind_fapr}
 f23a <- fapr[1:20, c("2","3")]
 f23b <- fapr[40:79, c("2","3")]
 f23 <- rbind(f23a, f23b)
 ```
 
-Subset on markers. This way only extracts the selected `markers` from fst database before creating the array.
+Subset on markers. This way only extracts the selected `markers` from
+the fst database before creating the array.
 
-```{r}
+```{r subset_markers}
 markers <- dimnames(fapr$X)[[3]][1:10]
 dim(fapr[,,markers]$X)
 ```
 
 This way extracts all markers on `X`, creates the array, then subsets on selected `markers`.
 
-```{r}
+```{r extract_markers_chr_X}
 markers <- dimnames(fapr$X)[[3]][1:10]
 dim(fapr$X[,,markers])
 ```
 
-Two `fst_genoprob` objects using same area. Combine using `cbind`. Notice that the order of chromosomes is reversed by joining `fapr2` to `fapr3`. Be sure to not overwrite existing fst databases!
+Two `fst_genoprob` objects using the same database. Combine using `cbind`. Notice that the order of chromosomes is reversed by joining `fapr2` to `fapr3`. Be sure to not overwrite existing fst databases!
 
-```{r}
+```{r cbind_two_subsets}
 fapr2 <- fst_genoprob(subset(apr, chr="2"), "aprx", tmpdir)
 fapr3 <- fst_genoprob(subset(apr, chr="3"), "aprx", tmpdir)
-```
-
-```{r}
 fapr32 <- cbind(fapr3,fapr2)
-```
-
-```{r}
 dim(fapr32)
-```
-
-```{r}
 list.files(tmpdir)
 ```
 
@@ -176,26 +177,23 @@ list.files(tmpdir)
 
 Here are the names of elements in a `fst_genoprob` object:
 
-```{r}
+```{r names_fapr}
 names(unclass(fapr))
 ```
 
-```{r}
+```{r fapr_fst_path}
 unclass(fapr)$fst
 ```
 
-```{r}
+```{r ind_chr_mar_pieces}
 sapply(unclass(fapr)[c("ind","chr","mar")], length)
 ```
 
 A `fst_genoprob` object has all the original information. Thus, it is possible to restore the original object from a `subset` (but not necessarily from a `cbind` or `rbind`). Here is an example.
 
-```{r}
+```{r restore_from_subset}
 fapr23 <- subset(fapr, chr=c("2","3"))
 dim(fapr23)
-```
-
-```{r}
 dim(fst_genoprob_restore(fapr23))
 ```
 
@@ -203,29 +201,44 @@ dim(fst_genoprob_restore(fapr23))
 
 Compare times to create `pr` once and to Read `fpr` 100 times.
 
-```{r}
+```{r calc_genoprob_time}
 system.time(pr <- calc_genoprob(DOex, error_prob=0.002))
 ```
 
-```{r}
+```{r create_db_time}
 system.time(fpr <- fst_genoprob(pr, "pr", tmpdir, verbose = FALSE))
 ```
 
-```{r}
+```{r read_db_time}
 tmpfile <- tempfile()
 saveRDS(pr, file = tmpfile)
 size_pr <- file.size(tmpfile) * 1e-6
 unlink(tmpfile)
 ```
 
-The `pr` object is `r format(object.size(pr), units = "MB")` in `R` or `r size_pr` Mb if saved as RDS file, while the `fpr` object is `r format(object.size(fpr), units = "MB")` in R with additional
-`r sum(file.size(unclass(fpr)$fst)) * 1e-6` Mb for saved fst databases.
+```{r function_to_get_files}
+files <- function(fst_genoprob)
+{
+    path <- unclass(fst_genoprob)$fst
+    file.path(dirname(path), list.files(dirname(path), paste0("^", basename(path))))
+}
+fst_size <- function(fst_genoprob)
+{
+    sum(file.size(files(fst_genoprob))) / 1024^2
+}
+
+```
+
+The `pr` object is `r format(object.size(pr), units = "Mb")`
+in `R` or `r round(size_pr, 1)` Mb if saved as RDS file, while the `fpr` object is
+`r format(object.size(fpr), units = "Mb")` in R with additional
+`r round(fst_size(fpr), 1)` Mb for saved fst databases.
 
 #### Time to extract chromosome information.
 
 Extract chromosome `"2"` 100 times.
 
-```{r}
+```{r extract_chr_time}
 system.time({
   for(i in seq(100))
     tmp <- fpr[["2"]]
@@ -233,7 +246,7 @@ system.time({
 ```
 
 Extract first 50 markers from chromosome `"2"` 100 times.
-```{r}
+```{r extract_markers_time}
 markers <- dimnames(fpr)$mar[["2"]][1:50]
 system.time({
   for(i in seq(100))
