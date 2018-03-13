@@ -33,7 +33,7 @@ of R/qtl2 needed to be modified to work with it.
 A weakness of [feather](https://github.com/wesm/feather) is that it is
 not under active development (just a couple of commits during the last
 year). And so the present package,
-[qtl2fst](https://github.com/kbroman/fst), uses the same approach as
+[qtl2fst](https://github.com/kbroman/qtl2fst), uses the same approach as
 [qtl2feather](https://github.com/byandell/qtl2feather) but relying on
 the [fst package](http://www.fstpackage.org). Another advantage of fst
 over feather, is that fst includes an option to write a compressed
