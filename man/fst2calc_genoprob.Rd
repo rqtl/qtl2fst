@@ -7,16 +7,16 @@
 fst2calc_genoprob(object)
 }
 \arguments{
-\item{object}{Object of class \code{\link{fst_genoprob}}.}
+\item{object}{Object of class \code{"fst_genoprob"}, linking to an fst database of genotype probabilities.}
 }
 \value{
-An object of class \code{\link[qtl2]{calc_genoprob}}.
+An object of class \code{"calc_genoprob"} (a list of 3-dimensional arrays).
 }
 \description{
 Uses package fst to convert R object created in R/qtl2 for fast access.
 }
 \details{
-The genotype probabilities are extracted from 1-2 fst databases. Each chromosome is extracted in turn.
+The genotype probabilities are extracted from fst databases. Each chromosome is extracted in turn.
 }
 \examples{
 library(qtl2)

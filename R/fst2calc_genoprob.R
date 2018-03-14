@@ -3,12 +3,14 @@
 #'
 #' Uses package fst to convert R object created in R/qtl2 for fast access.
 #'
-#' @param object Object of class \code{\link{fst_genoprob}}.
+#' @md
 #'
-#' @return An object of class \code{\link[qtl2]{calc_genoprob}}.
+#' @param object Object of class `"fst_genoprob"`, linking to an fst database of genotype probabilities.
+#'
+#' @return An object of class `"calc_genoprob"` (a list of 3-dimensional arrays).
 #'
 #' @details
-#' The genotype probabilities are extracted from 1-2 fst databases. Each chromosome is extracted in turn.
+#' The genotype probabilities are extracted from fst databases. Each chromosome is extracted in turn.
 #'
 #' @export
 #' @keywords utilities
