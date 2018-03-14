@@ -30,7 +30,7 @@ Components are:
 \item \code{chr} - Vector of (subset of) chromosome names for this object.
 \item \code{ind} - Vector of (subset of) individual names for this object.
 \item \code{mar} - Vector of (subset of) marker names for this object.
-\item \code{fst} - Names of fst databases: \code{A} = autosome database, \code{X} = X chromosome database (if needed).
+\item \code{fst} - Path and base of file names for the fst database.
 }
 }
 \description{
