@@ -106,16 +106,21 @@ fst_genoprob <- function(genoprob, fbase, fdir = ".", compress=0, verbose = TRUE
 }
 
 #' @export
+# chromosome names in fst_genoprob database
 names.fst_genoprob <- function(x) {
     unclass(x)$chr
 }
 
 #' @export
+# number of chromosomes in fst_genoprob database
 length.fst_genoprob <- function(x) {
     length(unclass(x)$chr)
 }
 
 #' @export
+# dimension of fst_genoprob object
+# matrix of size 3 x n_chr
+# columns are chromosomes; rows are no. individuals, no. genotypes, and no. markers
 dim.fst_genoprob <- function(x) {
     x <- unclass(x)
     out <- x$dim[, x$chr, drop = FALSE]
@@ -129,6 +134,12 @@ dim.fst_genoprob <- function(x) {
 }
 
 #' @export
+# dimnames of fst_genoprob object
+#
+# value = list with three components
+#   first is vector of individual names
+#   2nd is list of length n_chr, each being the genotype names for that chromosome
+#   3rd is list of length n_chr, each being vector of marker names for that chromosome
 dimnames.fst_genoprob <- function(x) {
     x <- unclass(x)
     dnames <- x$dimnames
@@ -139,7 +150,14 @@ dimnames.fst_genoprob <- function(x) {
 }
 
 
-# FIX_ME: add explanation
+# dnames are dimension names for each chromosome
+#    so a list of length n_chr, each having ind IDs x genotype names x marker names
+# index is a numeric value in {1,2,3}; we're pulling out this component of the dimnames for each chromosome
+# index_sub is a further index applied to the bit that's getting pulled out (actually a character vector)
+#
+# for each i in 1:length(dnames),
+#    we take dnames[[i]][[index]]
+# if index_sub is provided, we then take the part that is contained in index_sub
 index_chr <- function(dnames, index, index_sub=NULL) {
     lapply(dnames, function(x, index, index_sub) {
         xnames <- x[[index]]
