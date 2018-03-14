@@ -9,7 +9,7 @@ fst_genoprob(genoprob, fbase, fdir = ".", compress = 0, verbose = TRUE)
 \arguments{
 \item{genoprob}{Object of class \code{"calc_genoprob"}. For details, see the
 \href{http://kbroman.org/qtl2/assets/vignettes/developer_guide.html}{R/qtl2 developer guide}
-and \code{\link[qtl2]{calc_genoprob}}.}
+and \code{\link[qtl2:calc_genoprob]{qtl2::calc_genoprob()}}.}
 
 \item{fbase}{Base of filename for fst database.}
 
@@ -44,9 +44,9 @@ have information about the entire fst database.
 If a \code{fst_genoprob} object is a subset of another such object,
 the \code{chr}, \code{ind}, and \code{mar} contain information about what is in the subset.
 However, the \code{fst} databases are not altered in a subset, and can be restored by
-\code{\link{fst_genoprob_restore}}. The actual elements of a \code{fst_genoprob}
-object are only accessible to the user after a call to \code{\link[base]{unclass}}; instead
-the usual access to elements of the object invoke \code{\link{subset.fst_genoprob}}.
+\code{\link[=fst_genoprob_restore]{fst_genoprob_restore()}}. The actual elements of a \code{\link[=fst_genoprob]{fst_genoprob()}}
+object are only accessible to the user after a call to \code{\link[base:unclass]{base::unclass()}}; instead
+the usual access to elements of the object invoke \code{\link[=subset.fst_genoprob]{subset.fst_genoprob()}}.
 }
 \examples{
 library(qtl2)

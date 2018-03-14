@@ -3,38 +3,38 @@
 #'
 #' Uses package fst to convert R object created in R/qtl2 for fast access.
 #'
-#' @param genoprob Object of class \code{"calc_genoprob"}. For details, see the
-#' \href{http://kbroman.org/qtl2/assets/vignettes/developer_guide.html}{R/qtl2 developer guide}
-#' and \code{\link[qtl2]{calc_genoprob}}.
+#' @md
+#'
+#' @param genoprob Object of class `"calc_genoprob"`. For details, see the
+#' [R/qtl2 developer guide](http://kbroman.org/qtl2/assets/vignettes/developer_guide.html)
+#' and [qtl2::calc_genoprob()].
 #' @param fbase Base of filename for fst database.
 #' @param fdir Directory for fst database.
 #' @param compress Amount of compression to use (value in the range 0-100; lower values mean larger file sizes)
-#' @param verbose Show warning of fst creation if \code{TRUE} (default).
+#' @param verbose Show warning of fst creation if `TRUE` (default).
 #'
-#' @return A list containing the attributes of \code{genoprob}
+#' @return A list containing the attributes of `genoprob`
 #' and the address for the created fst database.
 #' Components are:
-#' \itemize{
-#' \item \code{dim} - List of all dimensions of 3-D arrays.
-#' \item \code{dimnames} - List of all dimension names of 3-D arrays.
-#' \item \code{is_x_chr} - Vector of all is_x_chr attributes.
-#' \item \code{chr} - Vector of (subset of) chromosome names for this object.
-#' \item \code{ind} - Vector of (subset of) individual names for this object.
-#' \item \code{mar} - Vector of (subset of) marker names for this object.
-#' \item \code{fst} - Path and base of file names for the fst database.
-#' }
+#' * `dim` - List of all dimensions of 3-D arrays.
+#' * `dimnames` - List of all dimension names of 3-D arrays.
+#' * `is_x_chr` - Vector of all is_x_chr attributes.
+#' * `chr` - Vector of (subset of) chromosome names for this object.
+#' * `ind` - Vector of (subset of) individual names for this object.
+#' * `mar` - Vector of (subset of) marker names for this object.
+#' * `fst` - Path and base of file names for the fst database.
 #'
 #' @details
 #' The genotype probabilities are stored in separate databases for each chromosome
-#' as tables of (indivduals*genotypes) x (positions) in directory \code{fst}.
-#' The \code{dim}, \code{dimnames} and \code{is_x_chr} elements of the object
+#' as tables of (indivduals*genotypes) x (positions) in directory `fst`.
+#' The `dim`, `dimnames` and `is_x_chr` elements of the object
 #' have information about the entire fst database.
-#' If a \code{fst_genoprob} object is a subset of another such object,
-#' the \code{chr}, \code{ind}, and \code{mar} contain information about what is in the subset.
-#' However, the \code{fst} databases are not altered in a subset, and can be restored by
-#' \code{\link{fst_genoprob_restore}}. The actual elements of a \code{fst_genoprob}
-#' object are only accessible to the user after a call to \code{\link[base]{unclass}}; instead
-#' the usual access to elements of the object invoke \code{\link{subset.fst_genoprob}}.
+#' If a `fst_genoprob` object is a subset of another such object,
+#' the `chr`, `ind`, and `mar` contain information about what is in the subset.
+#' However, the `fst` databases are not altered in a subset, and can be restored by
+#' [fst_genoprob_restore()]. The actual elements of a [fst_genoprob()]
+#' object are only accessible to the user after a call to [base::unclass()]; instead
+#' the usual access to elements of the object invoke [subset.fst_genoprob()].
 #'
 #' @importFrom fst write_fst
 #' @export
