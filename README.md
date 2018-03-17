@@ -13,23 +13,25 @@ files for rapid access. It is fully integrated with
 
 ### Installation
 
-R/qtl2 is early in development and so is not yet available on
-[CRAN](https://cran.r-project.org).
+Make sure you have the latest version of [R (3.4.4)](https://cran.r-project.org).
+Then install R/qtl2 using the following. (For more
+detail, see the instructions at <http://kbroman.org/qtl2>.)
 
-You can install R/qtl2 from [GitHub](https://github.com/rqtl).
+    install.packages("qtl2", repos="https://rqtl.org/qtl2cran")
 
-You first need to install the [fst](https://fstpackage.github.io) and
-[dplyr](http://dplyr.tidyverse.org/) packages.
+Next install the [fst](https://fstpackage.github.io), and
+[dplyr](http://dplyr.tidyverse.org/), and
+[devtools](https://github.com/r-lib/devtools) packages.
 
-    install.packages(c("fst", "dplyr"))
+    install.packages(c("fst", "dplyr", "devtools"))
 
-Once you have installed these, install qtl2fst as
+Once you have installed these, install qtl2fst
 
-    install_github("kbroman/qtl2fst")
+    devtools::install_github("kbroman/qtl2fst")
 
-To install vignettes:
+To also install vignettes:
 
-    install_github("kbroman/qtl2fst", build_vignettes = TRUE)
+    devtools::install_github("kbroman/qtl2fst", build_vignettes = TRUE)
 
 ---
 
