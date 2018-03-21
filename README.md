@@ -1,6 +1,6 @@
 # qtl2fst
 
-[![Build Status](https://travis-ci.org/byandell/qtl2fst.svg?branch=master)](https://travis-ci.org/kbroman/qtl2fst)
+[![Build Status](https://travis-ci.org/rqtl/qtl2fst.svg?branch=master)](https://travis-ci.org/rqtl/qtl2fst)
 
 [R/qtl2](http://kbroman.org/qtl2) package using the [fst](https://fstpackage.github.io) package.
 
