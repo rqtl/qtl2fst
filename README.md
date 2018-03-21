@@ -2,12 +2,16 @@
 
 [![Build Status](https://travis-ci.org/rqtl/qtl2fst.svg?branch=master)](https://travis-ci.org/rqtl/qtl2fst)
 
-[R/qtl2](http://kbroman.org/qtl2) package using the [fst](https://fstpackage.github.io) package.
+[R/qtl2](http://kbroman.org/qtl2) (aka qtl2) is a reimplementation of
+the QTL analysis software [R/qtl](https://rqtl.org), to better handle
+high-dimensional data and complex cross designs.
 
-R/qtl2fst is uses fst to store a genotype probabilitis in a set of
-files for rapid access. It is fully integrated with
-[R/qtl2](http://kbroman.org/qtl2) (aka qtl2). It is based on
-[qtl2feather](https://github.com/byandell/qtl2feather).
+The [qtl2fst](https://github.com/rqtl/qtl2fst) package uses
+[fst](http://www.fstpackage.org/) to store a genotype probabilities in
+a set of files for rapid access but reduced memory usage. It is fully
+integrated with [R/qtl2](http://kbroman.org/qtl2), and is based on the
+[qtl2feather](https://github.com/byandell/qtl2feather) which stores
+files in the [feather](https://github.com/wesm/feather) format.
 
 ---
 
@@ -19,17 +23,17 @@ detail, see the instructions at <http://kbroman.org/qtl2>.)
 
     install.packages("qtl2", repos="https://rqtl.org/qtl2cran")
 
-Next install the [fst](https://fstpackage.github.io), and
+Next install the [fst](https://fstpackage.github.io),
 [dplyr](http://dplyr.tidyverse.org/), and
 [devtools](https://github.com/r-lib/devtools) packages.
 
     install.packages(c("fst", "dplyr", "devtools"))
 
-Once you have installed these, install qtl2fst
+Once you have installed these, install qtl2fst from GitHub:
 
     devtools::install_github("kbroman/qtl2fst")
 
-To also install vignettes:
+To also install vignettes, include `build_vignettes=TRUE`:
 
     devtools::install_github("kbroman/qtl2fst", build_vignettes = TRUE)
 
@@ -37,4 +41,4 @@ To also install vignettes:
 
 #### License
 
-[Licensed](License.md) under [GPL-3](https://www.r-project.org/Licenses/GPL-3).
+[Licensed](LICENSE) under [GPL-3](https://www.r-project.org/Licenses/GPL-3).
