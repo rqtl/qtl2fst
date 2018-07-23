@@ -2,9 +2,12 @@
 % Please edit documentation in R/fst2probs.R
 \name{fst2probs}
 \alias{fst2probs}
+\alias{fst2calc_genoprob}
 \title{Extract genotype probabilities from fst database}
 \usage{
 fst2probs(object)
+
+fst2calc_genoprob(object)
 }
 \arguments{
 \item{object}{Object of class \code{"fst_genoprob"}, linking to an fst database of genotype probabilities.}
@@ -18,6 +21,11 @@ Extract genotype probabilities from fst database as an ordinary calc_genoprob ob
 \details{
 The genotype probabilities are extracted from the fst database. Each chromosome is extracted in turn.
 }
+\section{Functions}{
+\itemize{
+\item \code{fst2calc_genoprob}: Deprecated version (to be deleted)
+}}
+
 \examples{
 library(qtl2)
 grav2 <- read_cross2(system.file("extdata", "grav2.zip", package="qtl2"))

@@ -49,7 +49,7 @@ fst2probs <-
 }
 
 
-#' @describeIn probs2fst Deprecated version (to be deleted)
+#' @describeIn fst2probs Deprecated version (to be deleted)
 #' @export
 fst2calc_genoprob <-
     function(object)
