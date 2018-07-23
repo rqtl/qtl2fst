@@ -125,7 +125,7 @@ fst_genoprob <-
         attr(result, a) <- attrs[[a]]
 
     # RDS file to save index object
-    index_file <- paste0(result$fst, "_index.rds")
+    index_file <- paste0(result$fst, "_fstindex.rds")
 
     class(result) <- c("fst_genoprob", attrs$class)
 

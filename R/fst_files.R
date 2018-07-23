@@ -29,7 +29,7 @@ fst_files <-
 
     chr <- names(object)
 
-    files <- c( paste0(path, "_index.rds"),
+    files <- c( paste0(path, "_fstindex.rds"),
                paste0(path, "_", chr, ".fst") )
 
     exist <- file.exists(files)
