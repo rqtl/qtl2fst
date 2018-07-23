@@ -49,6 +49,7 @@
 #' probs <- calc_genoprob(grav2, map, error_prob=0.002)
 #' dir <- tempdir()
 #' fprobs <- probs2fst(probs, "grav2", dir)
+#' \dontshow{unlink(fst_files(fprobs))}
 
 probs2fst <-
     function(genoprob, fbase, fdir=".", compress=0, overwrite=FALSE, quiet=FALSE)
@@ -188,6 +189,7 @@ index_chr <- function(dnames, index, index_sub=NULL) {
 
 #' @describeIn probs2fst Deprecated version (to be deleted)
 #' @export
+#' @param verbose The opposite of quiet (used in the deprecated function `fst_genoprob()`)
 fst_genoprob <-
     function(genoprob, fbase, fdir = ".", compress=0, verbose = TRUE)
 {

@@ -24,6 +24,8 @@ and \code{\link[qtl2:calc_genoprob]{qtl2::calc_genoprob()}}.}
 \item{overwrite}{If FALSE (the default), refuse to overwrite any files that already exist.}
 
 \item{quiet}{If FALSE (the default), show messages about fst database creation.}
+
+\item{verbose}{The opposite of quiet (used in the deprecated function `fst_genoprob()`)}
 }
 \value{
 A list containing the attributes of \code{genoprob}
@@ -66,6 +68,7 @@ map <- insert_pseudomarkers(grav2$gmap, step=1)
 probs <- calc_genoprob(grav2, map, error_prob=0.002)
 dir <- tempdir()
 fprobs <- probs2fst(probs, "grav2", dir)
+\dontshow{unlink(fst_files(fprobs))}
 }
 \seealso{
 \code{\link[=fst2probs]{fst2probs()}}

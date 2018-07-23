@@ -24,6 +24,7 @@
 #' dir <- tempdir()
 #' fprobs <- probs2fst(probs, "grav2", dir)
 #' nprobs <- fst2probs(fprobs)
+#' \dontshow{unlink(fst_files(fprobs))}
 fst2probs <-
     function(object)
 {

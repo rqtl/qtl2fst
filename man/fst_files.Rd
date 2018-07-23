@@ -24,6 +24,7 @@ fprobs <- probs2fst(probs, "grav2", dir)
 
 fst_path(fprobs)
 fst_files(fprobs)
+\dontshow{unlink(fst_files(fprobs))}
 }
 \seealso{
 \code{\link[=fst_path]{fst_path()}}

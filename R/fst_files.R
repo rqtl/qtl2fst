@@ -20,6 +20,8 @@
 #'
 #' fst_path(fprobs)
 #' fst_files(fprobs)
+#' \dontshow{unlink(fst_files(fprobs))}
+
 fst_files <-
     function(object)
 {

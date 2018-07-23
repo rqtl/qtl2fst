@@ -34,6 +34,7 @@ probs <- calc_genoprob(grav2, map, error_prob=0.002)
 dir <- tempdir()
 fprobs <- probs2fst(probs, "grav2", dir)
 nprobs <- fst2probs(fprobs)
+\dontshow{unlink(fst_files(fprobs))}
 }
 \seealso{
 \code{\link[=probs2fst]{probs2fst()}}
