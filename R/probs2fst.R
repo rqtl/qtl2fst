@@ -178,6 +178,7 @@ index_chr <- function(dnames, index, index_sub=NULL) {
 
 
 #' @describeIn probs2fst Deprecated version (to be deleted)
+#' @export
 fst_genoprob <-
     function(genoprob, fbase, fdir = ".", compress=0, verbose = TRUE)
 {
