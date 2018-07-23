@@ -7,7 +7,7 @@ the QTL analysis software [R/qtl](http://rqtl.org), to better handle
 high-dimensional data and complex cross designs.
 
 The [qtl2fst](https://github.com/rqtl/qtl2fst) package uses
-[fst](http://www.fstpackage.org/) to store a genotype probabilities in
+the [fst package](http://www.fstpackage.org/) to store genotype probabilities in
 a set of files for rapid access but reduced memory usage. It is fully
 integrated with [R/qtl2](https://kbroman.org/qtl2), and is based on the
 [qtl2feather](https://github.com/byandell/qtl2feather) package which stores
