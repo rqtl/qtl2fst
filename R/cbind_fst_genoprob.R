@@ -18,8 +18,8 @@
 #' probsA <- calc_genoprob(grav2[1:5,1:2], map, error_prob=0.002)
 #' probsB <- calc_genoprob(grav2[1:5,3:4], map, error_prob=0.002)
 #' dir <- tempdir()
-#' fprobsA <- fst_genoprob(probsA, "exampleAc", dir)
-#' fprobsB <- fst_genoprob(probsB, "exampleBc", dir)
+#' fprobsA <- fst_genoprob(probsA, "exampleAc", dir, overwrite=TRUE)
+#' fprobsB <- fst_genoprob(probsB, "exampleBc", dir, overwrite=TRUE)
 #' fprobs <- cbind(fprobsA, fprobsB, fbase = "exampleABc")
 #'
 #' @export
@@ -44,8 +44,7 @@ bind_fst <- function(args, check_fn, append_fn, bind_fn,
     result <- args[[1]]
     if(!inherits(result, "fst_genoprob"))
         stop("argument ", 1, "is not of class fst_genoprob")
-    if(length(args) == 1)
-        return(result)
+    if(length(args) == 1) return(result)
 
     attrs <- attributes(result)
     result <- unclass(result)
@@ -84,18 +83,22 @@ bind_fst <- function(args, check_fn, append_fn, bind_fn,
     }
 
     # Done, unless some args have different fst files.
-    if(!diff_fst)
+    if(!diff_fst) {
+        # write new index file
+        saveRDS(result, paste0(unclass(result)$fst, "_fstindex.rds"))
+
         return(result)
+    }
 
     # Different fsts. Need to convert to calc_genoprob and back again.
-    if(missing(fbase))
+    if(missing(fbase) || is.null(fbase))
         stop("need to supply fbase to bind distinct fst_genoprob objects")
 
-    result <- fst2calc_genoprob(result)
+    result <- fst_extract(result)
 
     # Convert rest to calc_genoprob and append in usual way.
     for(i in seq(diff_fst, length(args))) {
-        argsi <- fst2calc_genoprob(args[[i]])
+        argsi <- fst_extract(args[[i]])
         result <- bind_fn(result, argsi)
     }
 
