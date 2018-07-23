@@ -22,7 +22,7 @@ probs <- calc_genoprob(grav2, error_prob=0.002)
 dir <- tempdir()
 fprobs <- probs2fst(probs, "grav2", dir)
 
-fst_path(fprobs))
+fst_path(fprobs)
 fst_files(fprobs)
 }
 \seealso{
