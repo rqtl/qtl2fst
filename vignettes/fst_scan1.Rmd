@@ -3,7 +3,7 @@ title: "Fst scan1"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Use fst_genoprob with scan1}
+  %\VignetteIndexEntry{Use probs2fst with scan1}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -12,7 +12,7 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 5)
 ```
 
-The goal is to use `fst_genoprob` object with `scan1` and other tools in `R/qtl2`.
+The goal is to use `"fst_genoprob"` object with `scan1()` and other tools in `R/qtl2`.
 
 ```{r}
 suppressPackageStartupMessages({
@@ -43,8 +43,8 @@ tmpdir <- tempdir()
 ```
 
 ```{r}
-fpr <- fst_genoprob(pr, "pr", tmpdir)
-fapr <- fst_genoprob(apr, "apr", tmpdir)
+fpr <- probs2fst(pr, "pr", tmpdir)
+fapr <- probs2fst(apr, "apr", tmpdir)
 ```
 
 ## Genome scan
