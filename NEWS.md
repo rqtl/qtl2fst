@@ -2,8 +2,12 @@
 
 ### Interface changes
 
-- Rename `fst_genoprob()` as `probs2fsts()`.
-- Rename `fst2calc_genoprob()` as `fst2probs()`.
+- Renamed `fst_genoprob()` as `probs2fsts()`. Changed the `verbose`
+  argument to `quiet` with the opposite meaning. Added an argument
+  `overwrite`; if `FALSE` (the default), refuse to overwrite the
+  `.fst` files.
+
+- Renamed `fst2calc_genoprob()` as `fst2probs()`.
 
 ### New features
 

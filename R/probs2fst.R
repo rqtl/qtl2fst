@@ -11,6 +11,7 @@
 #' @param fbase Base of filename for fst database.
 #' @param fdir Directory for fst database.
 #' @param compress Amount of compression to use (value in the range 0-100; lower values mean larger file sizes)
+#' @param overwrite If FALSE (the default), refuse to overwrite any files that already exist.
 #' @param quiet If FALSE (the default), show messages about fst database creation.
 #'
 #' @return A list containing the attributes of `genoprob`
@@ -88,6 +89,14 @@ probs2fst <-
         dimnames(x) <- list(NULL, dnames[[3]])
         as.data.frame(x)
     }
+
+    files <- paste0(result$fst, "_", chr, ".fst")
+    exists <- file.exists(files)
+    if(!overwrite && any(exists)) {
+        stop(sum(exists), " of the ", length(files), " already exist. ",
+             "Use overwrite=TRUE to overwrite")
+    }
+
     for(chr in result$chr) {
         probs <- tbl_array(genoprob[[chr]])
         fname <- paste0(result$fst, "_", chr, ".fst")
@@ -184,5 +193,6 @@ fst_genoprob <-
 {
     warning("fst_genoprob() is deprecated and will be removed; use probs2fst() instead.")
 
-    probs2fst(genoprob, fbase=fbase, fdir=fdir, compress=compress, quiet=!verbose)
+    probs2fst(genoprob, fbase=fbase, fdir=fdir, compress=compress, quiet=!verbose,
+              overwrite=TRUE)
 }

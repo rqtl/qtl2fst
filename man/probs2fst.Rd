@@ -21,6 +21,8 @@ and \code{\link[qtl2:calc_genoprob]{qtl2::calc_genoprob()}}.}
 \item{compress}{Amount of compression to use (value in the range 0-100; lower values mean larger file sizes)}
 
 \item{quiet}{If FALSE (the default), show messages about fst database creation.}
+
+\item{overwrite}{If FALSE (the default), refuse to overwrite any files that already exist.}
 }
 \value{
 A list containing the attributes of \code{genoprob}
