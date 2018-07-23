@@ -13,6 +13,7 @@
 #' @param compress Amount of compression to use (value in the range 0-100; lower values mean larger file sizes)
 #' @param overwrite If FALSE (the default), refuse to overwrite any files that already exist.
 #' @param quiet If FALSE (the default), show messages about fst database creation.
+#' @param verbose Opposite of `quiet`; deprecated argument (to be removed).
 #'
 #' @return A list containing the attributes of `genoprob`
 #' and the address for the created fst database.
@@ -33,14 +34,14 @@
 #' If a `fst_genoprob` object is a subset of another such object,
 #' the `chr`, `ind`, and `mar` contain information about what is in the subset.
 #' However, the `fst` databases are not altered in a subset, and can be restored by
-#' [fst2probs()]. The actual elements of a `"fst_genoprob"`
+#' [fst_restore()]. The actual elements of an `"fst_genoprob"`
 #' object are only accessible to the user after a call to [unclass()]; instead
 #' the usual access to elements of the object invoke [subset.fst_genoprob()].
 #'
 #' @importFrom fst write_fst
 #' @export
 #' @keywords utilities
-#' @seealso [fst2probs()]
+#' @seealso [fst_path()], [fst_extract()], [fst_files()], [replace_path()], [fst_restore()]
 #'
 #' @examples
 #' library(qtl2)
@@ -48,18 +49,21 @@
 #' map <- insert_pseudomarkers(grav2$gmap, step=1)
 #' probs <- calc_genoprob(grav2, map, error_prob=0.002)
 #' dir <- tempdir()
-#' fprobs <- probs2fst(probs, "grav2", dir, overwrite=TRUE)
+#' fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
 #' \dontshow{unlink(fst_files(fprobs))}
 
-probs2fst <-
-    function(genoprob, fbase, fdir=".", compress=0, overwrite=FALSE, quiet=FALSE)
+#' @describeIn probs2fst Deprecated version (to be deleted)
+#' @export
+fst_genoprob <-
+    function(genoprob, fbase, fdir=".", compress=0, verbose=TRUE, overwrite=FALSE, quiet=!verbose)
 {
-    # Set up directory for fst objects.
-    if(!dir.exists(fdir))
-        stop(paste("directory", fdir, "does not exist"))
+    if(!missing(verbose)) {
+        warning('The verbose argument is deprecated and will be removed; use "quiet" instead.')
+    }
 
-    if(!is.numeric(compress) || length(compress) != 1 || compress < 0 || compress > 100)
+    if(!is.numeric(compress) || length(compress) != 1 || compress < 0 || compress > 100) {
         stop("compress should be a number between 0 and 100")
+    }
 
     # Get attributes from genoprob object.
     attrs <- attributes(genoprob)
@@ -78,8 +82,16 @@ probs2fst <-
     result$mar <- tmp
 
     # Add fst addresses
-    if(missing(fbase) || is.null(fbase)) stop("need to supply fbase")
-    result$fst <- file.path(fdir, fbase)
+    if(missing(fbase) || is.null(fbase) || !is.character(fbase) || length(fbase) != 1) {
+        stop('fbase should be a single character string, for the file "stem"')
+    }
+    if(is.null(fdir) || fdir == "") result$fst <- fbase
+    else result$fst <- file.path(fdir, fbase)
+
+    # Make sure directory exists
+    if(!dir.exists(dirname(result$fst))) {
+        stop("directory ", dirname(result$fst), " does not exist")
+    }
 
     # Turn list of 3D arrays into table
     # Need to handle X chr separately!
@@ -184,17 +196,4 @@ index_chr <- function(dnames, index, index_sub=NULL) {
         xnames
     },
     index, index_sub)
-}
-
-
-#' @describeIn probs2fst Deprecated version (to be deleted)
-#' @export
-#' @param verbose The opposite of quiet (used in the deprecated function `fst_genoprob()`)
-fst_genoprob <-
-    function(genoprob, fbase, fdir = ".", compress=0, verbose = TRUE)
-{
-    warning("fst_genoprob() is deprecated and will be removed; use probs2fst() instead.")
-
-    probs2fst(genoprob, fbase=fbase, fdir=fdir, compress=compress, quiet=!verbose,
-              overwrite=TRUE)
 }

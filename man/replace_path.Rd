@@ -7,7 +7,7 @@
 replace_path(object, path)
 }
 \arguments{
-\item{object}{An object of class \code{"fst_genoprob"} as created by \code{\link[=probs2fst]{probs2fst()}}.}
+\item{object}{An object of class \code{"fst_genoprob"} as created by \code{\link[=fst_genoprob]{fst_genoprob()}}.}
 
 \item{path}{New path (directory + file stem as a single character string) to be used in the object.}
 }

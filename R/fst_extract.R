@@ -1,4 +1,4 @@
-# fst2probs (previous fst2calc_genoprob)
+# fst_extract (previously fst2calc_genoprob)
 #' Extract genotype probabilities from fst database
 #'
 #' Extract genotype probabilities from fst database as an ordinary calc_genoprob object.
@@ -14,7 +14,7 @@
 #'
 #' @export
 #' @keywords utilities
-#' @seealso [probs2fst()]
+#' @seealso [fst_genoprob()]
 #'
 #' @examples
 #' library(qtl2)
@@ -22,10 +22,10 @@
 #' map <- insert_pseudomarkers(grav2$gmap, step=1)
 #' probs <- calc_genoprob(grav2, map, error_prob=0.002)
 #' dir <- tempdir()
-#' fprobs <- probs2fst(probs, "grav2", dir, overwrite=TRUE)
-#' nprobs <- fst2probs(fprobs)
+#' fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
+#' nprobs <- fst_extract(fprobs)
 #' \dontshow{unlink(fst_files(fprobs))}
-fst2probs <-
+fst_extract <-
     function(object)
 {
     if(!inherits(object, "fst_genoprob"))
@@ -50,12 +50,12 @@ fst2probs <-
 }
 
 
-#' @describeIn fst2probs Deprecated version (to be deleted)
+#' @describeIn fst_extract Deprecated version (to be deleted)
 #' @export
 fst2calc_genoprob <-
     function(object)
 {
-    warning("fst2calc_genoprob() is deprecated and will be removed; use fst2probs() instead.")
+    warning("fst2calc_genoprob() is deprecated and will be removed; use fst_extract() instead.")
 
-    fst2probs(object)
+    fst_extract(object)
 }

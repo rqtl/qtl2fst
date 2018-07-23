@@ -60,8 +60,8 @@ directory; similarly for the allele probabilities.
 
 ```{r write_fst_db}
 tmpdir <- tempdir()
-fpr <- probs2fst(pr, "pr", tmpdir)
-fapr <- probs2fst(apr, "apr", tmpdir)
+fpr <- fst_genoprob(pr, "pr", tmpdir)
+fapr <- fst_genoprob(apr, "apr", tmpdir)
 ```
 
 List the files in the directory
@@ -166,8 +166,8 @@ dim(fapr$X[,,markers])
 Two `"fst_genoprob"` objects using the same database. Combine using `cbind`. Notice that the order of chromosomes is reversed by joining `fapr2` to `fapr3`. Be sure to not overwrite existing fst databases!
 
 ```{r cbind_two_subsets}
-fapr2 <- probs2fst(subset(apr, chr="2"), "aprx", tmpdir)
-fapr3 <- probs2fst(subset(apr, chr="3"), "aprx", tmpdir)
+fapr2 <- fst_genoprob(subset(apr, chr="2"), "aprx", tmpdir)
+fapr3 <- fst_genoprob(subset(apr, chr="3"), "aprx", tmpdir)
 fapr32 <- cbind(fapr3,fapr2)
 dim(fapr32)
 list.files(tmpdir)
@@ -206,7 +206,7 @@ system.time(pr <- calc_genoprob(DOex, error_prob=0.002))
 ```
 
 ```{r create_db_time}
-system.time(fpr <- probs2fst(pr, "pr", tmpdir, quiet=TRUE, overwrite=TRUE))
+system.time(fpr <- fst_genoprob(pr, "pr", tmpdir, quiet=TRUE, overwrite=TRUE))
 ```
 
 ```{r read_db_time}

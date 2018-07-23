@@ -7,7 +7,7 @@
 fst_path(object)
 }
 \arguments{
-\item{object}{An object of class \code{"fst_genoprob"} as created by \code{\link[=probs2fst]{probs2fst()}}.}
+\item{object}{An object of class \code{"fst_genoprob"} as created by \code{\link[=fst_genoprob]{fst_genoprob()}}.}
 }
 \value{
 Character string with path (and initial file stem) for files used in the input \code{object}.
@@ -20,7 +20,7 @@ library(qtl2)
 grav2 <- read_cross2(system.file("extdata", "grav2.zip", package="qtl2"))
 probs <- calc_genoprob(grav2, error_prob=0.002)
 dir <- tempdir()
-fprobs <- probs2fst(probs, "grav2", dir, overwrite=TRUE)
+fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
 
 fst_path(fprobs)
 fst_files(fprobs)

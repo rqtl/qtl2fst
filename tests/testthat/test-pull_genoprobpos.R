@@ -10,7 +10,7 @@ test_that("qtl2::pull_genoprobpos works with qtl2fst", {
     probs <- calc_genoprob(iron, map, error_prob=0.002)
 
     dir <- tempdir()
-    fprobs <- probs2fst(probs, "iron_probs", dir)
+    fprobs <- fst_genoprob(probs, "iron_probs", dir)
 
     marker <- find_marker(map, 18, 30.4)
     pr_18_30 <- pull_genoprobpos(probs, marker)

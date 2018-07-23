@@ -1,22 +1,22 @@
-## qtl2fst 0.2-1 (2018-07-23)
+## qtl2fst 0.2-2 (2018-07-23)
 
 ### Interface changes
 
-- Renamed `fst_genoprob()` as `probs2fsts()`. Changed the `verbose`
-  argument to `quiet` with the opposite meaning. Added an argument
-  `overwrite`; if `FALSE` (the default), refuse to overwrite the
-  `.fst` files.
+- `fst_genoprob()`: added `quiet` argument, to replace `verbose` which
+  we'll ultimately remove. Also added an argument `overwrite`; if
+  `FALSE` (the default), refuse to overwrite the `.fst` files.
 
-- Renamed `fst2calc_genoprob()` as `fst2probs()`.
+- Renamed `fst2calc_genoprob()` as `fst_extract()`. The function with
+  the original name will remain for a while, but will give a warning.
+
+- Renamed `fst_genoprob_restore()` as `fst_restore(). The function with
+  the original name will remain for a while, but will give a warning.
 
 ### New features
 
-- When `probs2fst()` creates the set of `.fst` files with the genotype
+- When `fst_genoprob()` creates the set of `.fst` files with the genotype
   probabilities, it also creates a `.rds` file with the index object.
   Load this object with `readRDS()`.
-
-- Added a function `remove_fst()` for removing all of the files behind
-  an `"fst_genoprob"` database.
 
 - Added a function `fst_path()` for viewing the path to the files behind
   an `"fst_genoprob"` database.
@@ -26,3 +26,11 @@
 
 - Added a function `replace_path()` for replacing the file path within a
   `"fst_genoprob"` object.
+
+
+## qtl2fst 0.1-3 (2018-03-13)
+
+- New package for storing [R/qtl2](https://kbroman.org/qtl2) genotype
+  probabilities in files using the [fst
+  package](http://www.fstpackage.org), for fast access with reduced
+  memory usage.

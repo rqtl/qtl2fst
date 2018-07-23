@@ -4,7 +4,7 @@
 #'
 #' @md
 #'
-#' @param object An object of class `"fst_genoprob"` as created by [probs2fst()].
+#' @param object An object of class `"fst_genoprob"` as created by [fst_genoprob()].
 #'
 #' @return Character string with path (and initial file stem) for files used in the input `object`.
 #'
@@ -16,7 +16,7 @@
 #' grav2 <- read_cross2(system.file("extdata", "grav2.zip", package="qtl2"))
 #' probs <- calc_genoprob(grav2, error_prob=0.002)
 #' dir <- tempdir()
-#' fprobs <- probs2fst(probs, "grav2", dir, overwrite=TRUE)
+#' fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
 #'
 #' fst_path(fprobs)
 #' fst_files(fprobs)
@@ -37,7 +37,7 @@ fst_path <-
 #'
 #' @md
 #'
-#' @param object An object of class `"fst_genoprob"` as created by [probs2fst()].
+#' @param object An object of class `"fst_genoprob"` as created by [fst_genoprob()].
 #'
 #' @param path New path (directory + file stem as a single character string) to be used in the object.
 #'
