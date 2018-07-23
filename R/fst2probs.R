@@ -1,7 +1,7 @@
-# fst_genoprob
-#' Store genotype probabilities in fst database
+# fst2probs (previous fst2calc_genoprob)
+#' Extract genotype probabilities from fst database
 #'
-#' Uses package fst to convert R object created in R/qtl2 for fast access.
+#' Extract genotype probabilities from fst database as an ordinary calc_genoprob object.
 #'
 #' @md
 #'
@@ -10,10 +10,11 @@
 #' @return An object of class `"calc_genoprob"` (a list of 3-dimensional arrays).
 #'
 #' @details
-#' The genotype probabilities are extracted from fst databases. Each chromosome is extracted in turn.
+#' The genotype probabilities are extracted from the fst database. Each chromosome is extracted in turn.
 #'
 #' @export
 #' @keywords utilities
+#' @seealso [probs2fst()]
 #'
 #' @examples
 #' library(qtl2)
@@ -21,10 +22,11 @@
 #' map <- insert_pseudomarkers(grav2$gmap, step=1)
 #' probs <- calc_genoprob(grav2, map, error_prob=0.002)
 #' dir <- tempdir()
-#' fprobs <- fst_genoprob(probs, "grav2", dir)
-#' nprobs <- fst2calc_genoprob(fprobs)
-#'
-fst2calc_genoprob <- function(object) {
+#' fprobs <- probs2fst(probs, file.path(dir, "grav2"))
+#' nprobs <- fst2probs(fprobs)
+fst2probs <-
+    function(object)
+{
     if(!inherits(object, "fst_genoprob"))
         stop("object must inherit class fst_genoprob")
 
@@ -44,4 +46,15 @@ fst2calc_genoprob <- function(object) {
     class(result) <- attrs$class[-1]
 
     result
+}
+
+
+#' @describeIn probs2fst Deprecated version (to be deleted)
+#' @export
+fst2calc_genoprob <-
+    function(object)
+{
+    warning("fst2calc_genoprob() is deprecated and will be removed; use fst2probs() instead.")
+
+    fst2probs(object)
 }
