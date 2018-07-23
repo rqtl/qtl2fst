@@ -206,7 +206,7 @@ system.time(pr <- calc_genoprob(DOex, error_prob=0.002))
 ```
 
 ```{r create_db_time}
-system.time(fpr <- probs2fst(pr, "pr", tmpdir, quiet=TRUE))
+system.time(fpr <- probs2fst(pr, "pr", tmpdir, quiet=TRUE, overwrite=TRUE))
 ```
 
 ```{r read_db_time}
@@ -247,4 +247,9 @@ system.time({
   for(i in seq(100))
     tmp <- fpr[["2"]]
 })
+```
+
+```{r clean_up_files, include=FALSE}
+unlink(fst_files(fpr))
+unlink(fst_files(fapr))
 ```

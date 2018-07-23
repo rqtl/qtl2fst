@@ -133,3 +133,9 @@ Plot results
 ```{r}
 plot(scan_snppr, snpinfo, drop_hilit = 1.5)
 ```
+
+
+```{r clean_up_files, include=FALSE}
+unlink(fst_files(fpr))
+unlink(fst_files(fapr))
+```
