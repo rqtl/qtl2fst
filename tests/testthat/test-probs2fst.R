@@ -180,6 +180,6 @@ test_that("fst_genoprob works with qtl2 functions", {
     expect_equal(operm, foperm)
 
     # clean up
-    unlink(files(fprobs))
+    unlink(fst_files(fprobs))
 
 })
