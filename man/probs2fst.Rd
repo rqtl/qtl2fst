@@ -5,7 +5,7 @@
 \alias{fst_genoprob}
 \title{Store genotype probabilities in fst database}
 \usage{
-probs2fst(genoprob, fbase, fdir = ".", compress = 0, verbose = TRUE)
+probs2fst(genoprob, fbase, fdir = ".", compress = 0, quiet = FALSE)
 
 fst_genoprob(genoprob, fbase, fdir = ".", compress = 0, verbose = TRUE)
 }

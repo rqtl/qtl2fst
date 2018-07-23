@@ -50,7 +50,7 @@
 #' fprobs <- probs2fst(probs, "grav2", dir)
 
 probs2fst <-
-    function(genoprob, fbase, fdir = ".", compress=0, verbose = TRUE)
+    function(genoprob, fbase, fdir = ".", compress=0, quiet = FALSE)
 {
     # Set up directory for fst objects.
     if(!dir.exists(fdir))
@@ -93,7 +93,7 @@ probs2fst <-
         fname <- paste0(result$fst, "_", chr, ".fst")
         if(file.exists(fname))
             warning("writing over existing ", fname)
-        if(verbose) message("writing ", fname)
+        if(!quiet) message("writing ", fname)
         fst::write_fst(probs, fname, compress=compress)
     }
 
@@ -184,5 +184,5 @@ fst_genoprob <-
 {
     warning("fst_genoprob() is deprecated and will be removed; use probs2fst() instead.")
 
-    probs2fst(genoprob, fbase=fbase, fdir=fdir, compress=compress, verbose=verbose)
+    probs2fst(genoprob, fbase=fbase, fdir=fdir, compress=compress, quiet=!verbose)
 }
