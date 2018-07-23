@@ -10,7 +10,7 @@ test_that("fst_genoprob works with qtl2 functions", {
     probs <- calc_genoprob(iron, map, error_prob=0.002)
 
     dir <- tempdir()
-    fprobs <- fst_genoprob(probs, "iron_probs", dir)
+    fprobs <- probs2fst(probs, "iron_probs", dir)
 
     # get the same thing when subsetting
     expect_equal(fprobs[["18"]], probs[["18"]])
@@ -180,7 +180,6 @@ test_that("fst_genoprob works with qtl2 functions", {
     expect_equal(operm, foperm)
 
     # clean up
-    lf <- list.files(dir, pattern=".fst")
-    unlink(file.path(dir, lf))
+    unlink(files(fprobs))
 
 })
