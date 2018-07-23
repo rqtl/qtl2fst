@@ -2,14 +2,14 @@
 
 [![Build Status](https://travis-ci.org/rqtl/qtl2fst.svg?branch=master)](https://travis-ci.org/rqtl/qtl2fst)
 
-[R/qtl2](http://kbroman.org/qtl2) (aka qtl2) is a reimplementation of
-the QTL analysis software [R/qtl](https://rqtl.org), to better handle
+[R/qtl2](https://kbroman.org/qtl2) (aka qtl2) is a reimplementation of
+the QTL analysis software [R/qtl](http://rqtl.org), to better handle
 high-dimensional data and complex cross designs.
 
 The [qtl2fst](https://github.com/rqtl/qtl2fst) package uses
 [fst](http://www.fstpackage.org/) to store a genotype probabilities in
 a set of files for rapid access but reduced memory usage. It is fully
-integrated with [R/qtl2](http://kbroman.org/qtl2), and is based on the
+integrated with [R/qtl2](https://kbroman.org/qtl2), and is based on the
 [qtl2feather](https://github.com/byandell/qtl2feather) package which stores
 files in the [feather](https://github.com/wesm/feather) format.
 
@@ -17,11 +17,11 @@ files in the [feather](https://github.com/wesm/feather) format.
 
 ### Installation
 
-Make sure you have the latest version of [R (3.4.4)](https://cran.r-project.org).
+Make sure you have the latest version of [R](https://cran.r-project.org).
 Then install R/qtl2 using the following. (For more
-detail, see the instructions at <http://kbroman.org/qtl2>.)
+detail, see the instructions at <https://kbroman.org/qtl2>.)
 
-    install.packages("qtl2", repos="https://rqtl.org/qtl2cran")
+    install.packages("qtl2", repos="http://rqtl.org/qtl2cran")
 
 Next install the [fst](https://fstpackage.github.io),
 [dplyr](http://dplyr.tidyverse.org/), and
