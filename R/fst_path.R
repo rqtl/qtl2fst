@@ -16,7 +16,7 @@
 #' grav2 <- read_cross2(system.file("extdata", "grav2.zip", package="qtl2"))
 #' probs <- calc_genoprob(grav2, error_prob=0.002)
 #' dir <- tempdir()
-#' fprobs <- probs2fst(probs, "grav2", dir)
+#' fprobs <- probs2fst(probs, "grav2", dir, overwrite=TRUE)
 #'
 #' fst_path(fprobs)
 #' fst_files(fprobs)

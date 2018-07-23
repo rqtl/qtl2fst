@@ -67,7 +67,7 @@ grav2 <- read_cross2(system.file("extdata", "grav2.zip", package="qtl2"))
 map <- insert_pseudomarkers(grav2$gmap, step=1)
 probs <- calc_genoprob(grav2, map, error_prob=0.002)
 dir <- tempdir()
-fprobs <- probs2fst(probs, "grav2", dir)
+fprobs <- probs2fst(probs, "grav2", dir, overwrite=TRUE)
 \dontshow{unlink(fst_files(fprobs))}
 }
 \seealso{

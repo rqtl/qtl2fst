@@ -22,7 +22,7 @@
 #' map <- insert_pseudomarkers(grav2$gmap, step=1)
 #' probs <- calc_genoprob(grav2, map, error_prob=0.002)
 #' dir <- tempdir()
-#' fprobs <- probs2fst(probs, "grav2", dir)
+#' fprobs <- probs2fst(probs, "grav2", dir, overwrite=TRUE)
 #' nprobs <- fst2probs(fprobs)
 #' \dontshow{unlink(fst_files(fprobs))}
 fst2probs <-
