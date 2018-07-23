@@ -5,7 +5,8 @@
 \alias{fst_genoprob}
 \title{Store genotype probabilities in fst database}
 \usage{
-probs2fst(genoprob, fbase, fdir = ".", compress = 0, quiet = FALSE)
+probs2fst(genoprob, fbase, fdir = ".", compress = 0, overwrite = FALSE,
+  quiet = FALSE)
 
 fst_genoprob(genoprob, fbase, fdir = ".", compress = 0, verbose = TRUE)
 }
@@ -20,9 +21,9 @@ and \code{\link[qtl2:calc_genoprob]{qtl2::calc_genoprob()}}.}
 
 \item{compress}{Amount of compression to use (value in the range 0-100; lower values mean larger file sizes)}
 
-\item{quiet}{If FALSE (the default), show messages about fst database creation.}
-
 \item{overwrite}{If FALSE (the default), refuse to overwrite any files that already exist.}
+
+\item{quiet}{If FALSE (the default), show messages about fst database creation.}
 }
 \value{
 A list containing the attributes of \code{genoprob}

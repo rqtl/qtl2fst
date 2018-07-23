@@ -51,7 +51,7 @@
 #' fprobs <- probs2fst(probs, "grav2", dir)
 
 probs2fst <-
-    function(genoprob, fbase, fdir = ".", compress=0, quiet = FALSE)
+    function(genoprob, fbase, fdir=".", compress=0, overwrite=FALSE, quiet=FALSE)
 {
     # Set up directory for fst objects.
     if(!dir.exists(fdir))
@@ -90,7 +90,7 @@ probs2fst <-
         as.data.frame(x)
     }
 
-    files <- paste0(result$fst, "_", chr, ".fst")
+    files <- paste0(result$fst, "_", result$chr, ".fst")
     exists <- file.exists(files)
     if(!overwrite && any(exists)) {
         stop(sum(exists), " of the ", length(files), " already exist. ",
