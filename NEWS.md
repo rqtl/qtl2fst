@@ -14,9 +14,11 @@
 
 ### New features
 
-- When `fst_genoprob()` creates the set of `.fst` files with the genotype
-  probabilities, it also creates a `.rds` file with the index object.
-  Load this object with `readRDS()`.
+- When `fst_genoprob()` creates the set of `.fst` files with the
+  genotype probabilities, it also creates a `.rds` file with the index
+  object. Load this object with `readRDS()`. `cbind.fst_genoprob()` and
+  `rbind.fst_genoprob()` will write the index `.fst` file for the new
+  object.
 
 - Added a function `fst_path()` for viewing the path to the files behind
   an `"fst_genoprob"` database.

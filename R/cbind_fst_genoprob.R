@@ -8,6 +8,7 @@
 #' @param fbase Base of fileame for fst database.
 #' Needed if objects have different fst databases.
 #' @param fdir Directory for fst database.
+#' @param overwrite If FALSE (the default), refuse to overwrite existing `.fst` files.
 #'
 #' @return A single genotype probability object.
 #'
@@ -20,13 +21,13 @@
 #' dir <- tempdir()
 #' fprobsA <- fst_genoprob(probsA, "exampleAc", dir, overwrite=TRUE)
 #' fprobsB <- fst_genoprob(probsB, "exampleBc", dir, overwrite=TRUE)
-#' fprobs <- cbind(fprobsA, fprobsB, fbase = "exampleABc")
+#' fprobs <- cbind(fprobsA, fprobsB, fbase = "exampleABc", overwrite=TRUE)
 #'
 #' @export
 #' @export cbind.fst_genoprob
 #' @method cbind fst_genoprob
 #'
-cbind.fst_genoprob <- function(..., fbase, fdir = NULL) {
+cbind.fst_genoprob <- function(..., fbase=NULL, fdir = NULL, overwrite=FALSE) {
     # to cbind: probs, is_x_chr
     # to pass through (must match): crosstype, alleles, alleleprobs
 
@@ -34,12 +35,13 @@ cbind.fst_genoprob <- function(..., fbase, fdir = NULL) {
              check_cbind,
              append_chr,
              cbind,
-             fbase, fdir)
+             fbase=fbase, fdir=fdir,
+             overwrite=overwrite)
 }
 
 # FIX_ME: add explanation
 bind_fst <- function(args, check_fn, append_fn, bind_fn,
-                     fbase, fdir = NULL) {
+                     fbase=NULL, fdir = NULL, overwrite=FALSE) {
 
     result <- args[[1]]
     if(!inherits(result, "fst_genoprob"))
@@ -102,7 +104,7 @@ bind_fst <- function(args, check_fn, append_fn, bind_fn,
         result <- bind_fn(result, argsi)
     }
 
-    fst_genoprob(result, fbase, fdir)
+    fst_genoprob(result, fbase=fbase, fdir=fdir, overwrite=overwrite)
 }
 
 # FIX_ME: add explanation

@@ -4,24 +4,27 @@
 \alias{rbind.fst_genoprob}
 \title{Join genotype probabilities for different individuals}
 \usage{
-\method{rbind}{fst_genoprob}(..., fbase, fdir = NULL)
+\method{rbind}{fst_genoprob}(..., fbase = NULL, fdir = NULL,
+  overwrite = FALSE)
 }
 \arguments{
 \item{...}{Genotype probability objects as produced by
-\code{\link{fst_genoprob}}. Must have the same set of markers and
+\code{\link[=fst_genoprob]{fst_genoprob()}}. Must have the same set of markers and
 genotypes.}
 
 \item{fbase}{Base of fileame for fst database.
 Needed if objects have different fst databases.}
 
 \item{fdir}{Directory for fst database.}
+
+\item{overwrite}{If FALSE (the default), refuse to overwrite existing \code{.fst} files}
 }
 \value{
 A single genotype probability object.
 }
 \description{
 Join multiple genotype probability objects, as produced by
-\code{\link{fst_genoprob}} for different individuals.
+\code{\link[=fst_genoprob]{fst_genoprob()}} for different individuals.
 }
 \examples{
 library(qtl2)
@@ -30,8 +33,8 @@ map <- insert_pseudomarkers(grav2$gmap, step=1)
 probsA <- calc_genoprob(grav2[1:5,], map, error_prob=0.002)
 probsB <- calc_genoprob(grav2[6:12,], map, error_prob=0.002)
 dir <- tempdir()
-fprobsA <- fst_genoprob(probsA, "exampleAr", dir)
-fprobsB <- fst_genoprob(probsB, "exampleBr", dir)
+fprobsA <- fst_genoprob(probsA, "exampleAr", dir, overwrite=TRUE)
+fprobsB <- fst_genoprob(probsB, "exampleBr", dir, overwrite=TRUE)
 fprobs <- rbind(fprobsA, fprobsB, fbase = "exampleABr")
 
 }
