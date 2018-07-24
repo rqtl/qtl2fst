@@ -1,17 +1,19 @@
 # fst_genoprob
 #' Store genotype probabilities in fst database
 #'
-#' Uses package fst to convert R object created in R/qtl2 for fast access.
+#' Save an R/qtl2 genotype probabilities object to a set of fst files for fast access with reduced memory usage.
 #'
 #' @md
 #'
 #' @param genoprob Object of class `"calc_genoprob"`. For details, see the
-#' [R/qtl2 developer guide](http://kbroman.org/qtl2/assets/vignettes/developer_guide.html)
+#' [R/qtl2 developer guide](https://kbroman.org/qtl2/assets/vignettes/developer_guide.html)
 #' and [qtl2::calc_genoprob()].
 #' @param fbase Base of filename for fst database.
 #' @param fdir Directory for fst database.
 #' @param compress Amount of compression to use (value in the range 0-100; lower values mean larger file sizes)
-#' @param verbose Show warning of fst creation if `TRUE` (default).
+#' @param overwrite If FALSE (the default), refuse to overwrite any files that already exist.
+#' @param quiet If FALSE (the default), show messages about fst database creation.
+#' @param verbose Opposite of `quiet`; deprecated argument (to be removed).
 #'
 #' @return A list containing the attributes of `genoprob`
 #' and the address for the created fst database.
@@ -32,13 +34,14 @@
 #' If a `fst_genoprob` object is a subset of another such object,
 #' the `chr`, `ind`, and `mar` contain information about what is in the subset.
 #' However, the `fst` databases are not altered in a subset, and can be restored by
-#' [fst_genoprob_restore()]. The actual elements of a [fst_genoprob()]
-#' object are only accessible to the user after a call to [base::unclass()]; instead
+#' [fst_restore()]. The actual elements of an `"fst_genoprob"`
+#' object are only accessible to the user after a call to [unclass()]; instead
 #' the usual access to elements of the object invoke [subset.fst_genoprob()].
 #'
 #' @importFrom fst write_fst
 #' @export
 #' @keywords utilities
+#' @seealso [fst_path()], [fst_extract()], [fst_files()], [replace_path()], [fst_restore()]
 #'
 #' @examples
 #' library(qtl2)
@@ -46,15 +49,21 @@
 #' map <- insert_pseudomarkers(grav2$gmap, step=1)
 #' probs <- calc_genoprob(grav2, map, error_prob=0.002)
 #' dir <- tempdir()
-#' fprobs <- fst_genoprob(probs, "grav2", dir)
+#' fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
+#' \dontshow{unlink(fst_files(fprobs))}
 
-fst_genoprob <- function(genoprob, fbase, fdir = ".", compress=0, verbose = TRUE) {
-    # Set up directory for fst objects.
-    if(!dir.exists(fdir))
-        stop(paste("directory", fdir, "does not exist"))
+#' @describeIn probs2fst Deprecated version (to be deleted)
+#' @export
+fst_genoprob <-
+    function(genoprob, fbase, fdir=".", compress=0, verbose=TRUE, overwrite=FALSE, quiet=!verbose)
+{
+    if(!missing(verbose)) {
+        warning('The verbose argument is deprecated and will be removed; use "quiet" instead.')
+    }
 
-    if(!is.numeric(compress) || length(compress) != 1 || compress < 0 || compress > 100)
+    if(!is.numeric(compress) || length(compress) != 1 || compress < 0 || compress > 100) {
         stop("compress should be a number between 0 and 100")
+    }
 
     # Get attributes from genoprob object.
     attrs <- attributes(genoprob)
@@ -73,9 +82,16 @@ fst_genoprob <- function(genoprob, fbase, fdir = ".", compress=0, verbose = TRUE
     result$mar <- tmp
 
     # Add fst addresses
-    if(missing(fbase))
-        stop("need to supply fbase")
-    result$fst <- file.path(fdir, fbase)
+    if(missing(fbase) || is.null(fbase) || !is.character(fbase) || length(fbase) != 1) {
+        stop('fbase should be a single character string, for the file "stem"')
+    }
+    if(is.null(fdir) || fdir == "") result$fst <- fbase
+    else result$fst <- file.path(fdir, fbase)
+
+    # Make sure directory exists
+    if(!dir.exists(dirname(result$fst))) {
+        stop("directory ", dirname(result$fst), " does not exist")
+    }
 
     # Turn list of 3D arrays into table
     # Need to handle X chr separately!
@@ -86,12 +102,20 @@ fst_genoprob <- function(genoprob, fbase, fdir = ".", compress=0, verbose = TRUE
         dimnames(x) <- list(NULL, dnames[[3]])
         as.data.frame(x)
     }
+
+    files <- paste0(result$fst, "_", result$chr, ".fst")
+    exists <- file.exists(files)
+    if(!overwrite && any(exists)) {
+        stop(sum(exists), " of the ", length(files), " already exist. ",
+             "Use overwrite=TRUE to overwrite")
+    }
+
     for(chr in result$chr) {
         probs <- tbl_array(genoprob[[chr]])
         fname <- paste0(result$fst, "_", chr, ".fst")
         if(file.exists(fname))
             warning("writing over existing ", fname)
-        if(verbose) message("writing ", fname)
+        if(!quiet) message("writing ", fname)
         fst::write_fst(probs, fname, compress=compress)
     }
 
@@ -100,7 +124,13 @@ fst_genoprob <- function(genoprob, fbase, fdir = ".", compress=0, verbose = TRUE
     for(a in names(attrs)[-ignore])
         attr(result, a) <- attrs[[a]]
 
+    # RDS file to save index object
+    index_file <- paste0(result$fst, "_fstindex.rds")
+
     class(result) <- c("fst_genoprob", attrs$class)
+
+    # write index object to RDS file
+    saveRDS(result, index_file)
 
     result
 }

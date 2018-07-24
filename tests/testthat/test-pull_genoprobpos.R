@@ -18,8 +18,7 @@ test_that("qtl2::pull_genoprobpos works with qtl2fst", {
 
     expect_equal(pr_18_30, fpr_18_30)
 
-    # clean up
-    lf <- list.files(dir, pattern=".fst")
-    unlink(file.path(dir, lf))
+    # clean up: remove all of the files
+    unlink( fst_files(fprobs) )
 
 })

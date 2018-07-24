@@ -4,7 +4,8 @@
 \alias{cbind.fst_genoprob}
 \title{Join genotype probabilities for different chromosomes}
 \usage{
-\method{cbind}{fst_genoprob}(..., fbase, fdir = NULL)
+\method{cbind}{fst_genoprob}(..., fbase = NULL, fdir = NULL,
+  overwrite = FALSE, quiet = FALSE)
 }
 \arguments{
 \item{...}{Genotype probability objects as produced by
@@ -14,6 +15,10 @@
 Needed if objects have different fst databases.}
 
 \item{fdir}{Directory for fst database.}
+
+\item{overwrite}{If FALSE (the default), refuse to overwrite existing `.fst` files.}
+
+\item{quiet}{If TRUE, don't show any messages. Passed to [fst_genoprob()].}
 }
 \value{
 A single genotype probability object.
@@ -29,8 +34,11 @@ map <- insert_pseudomarkers(grav2$gmap, step=1)
 probsA <- calc_genoprob(grav2[1:5,1:2], map, error_prob=0.002)
 probsB <- calc_genoprob(grav2[1:5,3:4], map, error_prob=0.002)
 dir <- tempdir()
-fprobsA <- fst_genoprob(probsA, "exampleAc", dir)
-fprobsB <- fst_genoprob(probsB, "exampleBc", dir)
-fprobs <- cbind(fprobsA, fprobsB, fbase = "exampleABc")
+fprobsA <- fst_genoprob(probsA, "exampleAc", dir, overwrite=TRUE)
+fprobsB <- fst_genoprob(probsB, "exampleBc", dir, overwrite=TRUE)
+fprobs <- cbind(fprobsA, fprobsB, fbase = "exampleABc", overwrite=TRUE)
 
+}
+\seealso{
+[rbind.fst_genoprob()]
 }

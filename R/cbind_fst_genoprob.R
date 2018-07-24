@@ -8,6 +8,8 @@
 #' @param fbase Base of fileame for fst database.
 #' Needed if objects have different fst databases.
 #' @param fdir Directory for fst database.
+#' @param overwrite If FALSE (the default), refuse to overwrite existing `.fst` files.
+#' @param quiet If TRUE, don't show any messages. Passed to [fst_genoprob()].
 #'
 #' @return A single genotype probability object.
 #'
@@ -18,15 +20,18 @@
 #' probsA <- calc_genoprob(grav2[1:5,1:2], map, error_prob=0.002)
 #' probsB <- calc_genoprob(grav2[1:5,3:4], map, error_prob=0.002)
 #' dir <- tempdir()
-#' fprobsA <- fst_genoprob(probsA, "exampleAc", dir)
-#' fprobsB <- fst_genoprob(probsB, "exampleBc", dir)
-#' fprobs <- cbind(fprobsA, fprobsB, fbase = "exampleABc")
+#' fprobsA <- fst_genoprob(probsA, "exampleAc", dir, overwrite=TRUE)
+#' fprobsB <- fst_genoprob(probsB, "exampleBc", dir, overwrite=TRUE)
+#' fprobs <- cbind(fprobsA, fprobsB, fbase = "exampleABc", overwrite=TRUE)
 #'
 #' @export
 #' @export cbind.fst_genoprob
 #' @method cbind fst_genoprob
-#'
-cbind.fst_genoprob <- function(..., fbase, fdir = NULL) {
+#' @seealso [rbind.fst_genoprob()]
+
+cbind.fst_genoprob <-
+    function(..., fbase=NULL, fdir = NULL, overwrite=FALSE, quiet=FALSE)
+{
     # to cbind: probs, is_x_chr
     # to pass through (must match): crosstype, alleles, alleleprobs
 
@@ -34,18 +39,20 @@ cbind.fst_genoprob <- function(..., fbase, fdir = NULL) {
              check_cbind,
              append_chr,
              cbind,
-             fbase, fdir)
+             fbase=fbase, fdir=fdir,
+             overwrite=overwrite, quiet=quiet)
 }
 
 # FIX_ME: add explanation
-bind_fst <- function(args, check_fn, append_fn, bind_fn,
-                     fbase, fdir = NULL) {
+bind_fst <-
+    function(args, check_fn, append_fn, bind_fn,
+             fbase=NULL, fdir = NULL, overwrite=FALSE, quiet=FALSE)
+{
 
     result <- args[[1]]
     if(!inherits(result, "fst_genoprob"))
         stop("argument ", 1, "is not of class fst_genoprob")
-    if(length(args) == 1)
-        return(result)
+    if(length(args) == 1) return(result)
 
     attrs <- attributes(result)
     result <- unclass(result)
@@ -84,22 +91,26 @@ bind_fst <- function(args, check_fn, append_fn, bind_fn,
     }
 
     # Done, unless some args have different fst files.
-    if(!diff_fst)
+    if(!diff_fst) {
+        # write new index file
+        saveRDS(result, paste0(unclass(result)$fst, "_fstindex.rds"))
+
         return(result)
+    }
 
     # Different fsts. Need to convert to calc_genoprob and back again.
-    if(missing(fbase))
+    if(missing(fbase) || is.null(fbase))
         stop("need to supply fbase to bind distinct fst_genoprob objects")
 
-    result <- fst2calc_genoprob(result)
+    result <- fst_extract(result)
 
     # Convert rest to calc_genoprob and append in usual way.
     for(i in seq(diff_fst, length(args))) {
-        argsi <- fst2calc_genoprob(args[[i]])
+        argsi <- fst_extract(args[[i]])
         result <- bind_fn(result, argsi)
     }
 
-    fst_genoprob(result, fbase, fdir)
+    fst_genoprob(result, fbase=fbase, fdir=fdir, overwrite=overwrite, quiet=quiet)
 }
 
 # FIX_ME: add explanation

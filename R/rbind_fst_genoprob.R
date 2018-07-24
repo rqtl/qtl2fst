@@ -1,14 +1,18 @@
 #' Join genotype probabilities for different individuals
 #'
 #' Join multiple genotype probability objects, as produced by
-#' \code{\link{fst_genoprob}} for different individuals.
+#' [fst_genoprob()] for different individuals.
+#'
+#' @md
 #'
 #' @param ... Genotype probability objects as produced by
-#' \code{\link{fst_genoprob}}. Must have the same set of markers and
+#' [fst_genoprob()]. Must have the same set of markers and
 #' genotypes.
 #' @param fbase Base of fileame for fst database.
 #' Needed if objects have different fst databases.
 #' @param fdir Directory for fst database.
+#' @param overwrite If FALSE (the default), refuse to overwrite existing `.fst` files
+#' @param quiet If TRUE, don't show any messages. Passed to [fst_genoprob()].
 #'
 #' @return A single genotype probability object.
 #'
@@ -19,15 +23,18 @@
 #' probsA <- calc_genoprob(grav2[1:5,], map, error_prob=0.002)
 #' probsB <- calc_genoprob(grav2[6:12,], map, error_prob=0.002)
 #' dir <- tempdir()
-#' fprobsA <- fst_genoprob(probsA, "exampleAr", dir)
-#' fprobsB <- fst_genoprob(probsB, "exampleBr", dir)
+#' fprobsA <- fst_genoprob(probsA, "exampleAr", dir, overwrite=TRUE)
+#' fprobsB <- fst_genoprob(probsB, "exampleBr", dir, overwrite=TRUE)
 #' fprobs <- rbind(fprobsA, fprobsB, fbase = "exampleABr")
 #'
 #' @export
 #' @export rbind.fst_genoprob
 #' @method rbind fst_genoprob
-#'
-rbind.fst_genoprob <- function(..., fbase, fdir = NULL) {
+#' @seealso [cbind.fst_genoprob()]
+
+rbind.fst_genoprob <-
+    function(..., fbase=NULL, fdir = NULL, overwrite=FALSE, quiet=FALSE)
+{
     # to rbind: the data
     # to pass through (must match): crosstype, is_x_chr, alleles, alleleprobs
 
@@ -37,7 +44,8 @@ rbind.fst_genoprob <- function(..., fbase, fdir = NULL) {
              check_rbind,
              append_ind,
              rbind,
-             fbase, fdir)
+             fbase=fbase, fdir=fdir,
+             overwrite=overwrite, quiet=quiet)
 }
 
 # FIX_ME: add explanation

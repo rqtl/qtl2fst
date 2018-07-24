@@ -180,7 +180,6 @@ test_that("fst_genoprob works with qtl2 functions", {
     expect_equal(operm, foperm)
 
     # clean up
-    lf <- list.files(dir, pattern=".fst")
-    unlink(file.path(dir, lf))
+    unlink(fst_files(fprobs))
 
 })

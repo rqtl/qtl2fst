@@ -4,11 +4,12 @@
 \alias{fst_genoprob}
 \title{Store genotype probabilities in fst database}
 \usage{
-fst_genoprob(genoprob, fbase, fdir = ".", compress = 0, verbose = TRUE)
+fst_genoprob(genoprob, fbase, fdir = ".", compress = 0, verbose = TRUE,
+  overwrite = FALSE, quiet = !verbose)
 }
 \arguments{
 \item{genoprob}{Object of class \code{"calc_genoprob"}. For details, see the
-\href{http://kbroman.org/qtl2/assets/vignettes/developer_guide.html}{R/qtl2 developer guide}
+\href{https://kbroman.org/qtl2/assets/vignettes/developer_guide.html}{R/qtl2 developer guide}
 and \code{\link[qtl2:calc_genoprob]{qtl2::calc_genoprob()}}.}
 
 \item{fbase}{Base of filename for fst database.}
@@ -17,7 +18,11 @@ and \code{\link[qtl2:calc_genoprob]{qtl2::calc_genoprob()}}.}
 
 \item{compress}{Amount of compression to use (value in the range 0-100; lower values mean larger file sizes)}
 
-\item{verbose}{Show warning of fst creation if \code{TRUE} (default).}
+\item{verbose}{Opposite of \code{quiet}; deprecated argument (to be removed).}
+
+\item{overwrite}{If FALSE (the default), refuse to overwrite any files that already exist.}
+
+\item{quiet}{If FALSE (the default), show messages about fst database creation.}
 }
 \value{
 A list containing the attributes of \code{genoprob}
@@ -34,7 +39,7 @@ Components are:
 }
 }
 \description{
-Uses package fst to convert R object created in R/qtl2 for fast access.
+Save an R/qtl2 genotype probabilities object to a set of fst files for fast access with reduced memory usage.
 }
 \details{
 The genotype probabilities are stored in separate databases for each chromosome
@@ -44,16 +49,25 @@ have information about the entire fst database.
 If a \code{fst_genoprob} object is a subset of another such object,
 the \code{chr}, \code{ind}, and \code{mar} contain information about what is in the subset.
 However, the \code{fst} databases are not altered in a subset, and can be restored by
-\code{\link[=fst_genoprob_restore]{fst_genoprob_restore()}}. The actual elements of a \code{\link[=fst_genoprob]{fst_genoprob()}}
-object are only accessible to the user after a call to \code{\link[base:unclass]{base::unclass()}}; instead
+\code{\link[=fst_restore]{fst_restore()}}. The actual elements of an \code{"fst_genoprob"}
+object are only accessible to the user after a call to \code{\link[=unclass]{unclass()}}; instead
 the usual access to elements of the object invoke \code{\link[=subset.fst_genoprob]{subset.fst_genoprob()}}.
 }
+\section{Functions}{
+\itemize{
+\item \code{fst_genoprob}: Deprecated version (to be deleted)
+}}
+
 \examples{
 library(qtl2)
 grav2 <- read_cross2(system.file("extdata", "grav2.zip", package="qtl2"))
 map <- insert_pseudomarkers(grav2$gmap, step=1)
 probs <- calc_genoprob(grav2, map, error_prob=0.002)
 dir <- tempdir()
-fprobs <- fst_genoprob(probs, "grav2", dir)
+fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
+\dontshow{unlink(fst_files(fprobs))}
+}
+\seealso{
+\code{\link[=fst_path]{fst_path()}}, \code{\link[=fst_extract]{fst_extract()}}, \code{\link[=fst_files]{fst_files()}}, \code{\link[=replace_path]{replace_path()}}, \code{\link[=fst_restore]{fst_restore()}}
 }
 \keyword{utilities}

@@ -12,7 +12,7 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 5)
 ```
 
-The goal is to use `fst_genoprob` object with `scan1` and other tools in `R/qtl2`.
+The goal is to use `"fst_genoprob"` object with `scan1()` and other tools in `R/qtl2`.
 
 ```{r}
 suppressPackageStartupMessages({
@@ -132,4 +132,10 @@ Plot results
 
 ```{r}
 plot(scan_snppr, snpinfo, drop_hilit = 1.5)
+```
+
+
+```{r clean_up_files, include=FALSE}
+unlink(fst_files(fpr))
+unlink(fst_files(fapr))
 ```

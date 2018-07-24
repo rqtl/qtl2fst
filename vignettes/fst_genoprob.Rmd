@@ -130,7 +130,7 @@ dim(fapr[ , , dimnames(fapr)$mar$X[1:20]])
 
 ### Binding by columns or rows.
 
-Binding by columns (chromosomes) or rows (individuals) may cause creation of a new fst database if input objects arose from different fst databases. However, if objects are subsets of the same `fst_genoprob` object, then it reuses the one fst database. Further, if objects have the same directory and file basename for their fst databases, they will be combined without creation of any new fst databases.
+Binding by columns (chromosomes) or rows (individuals) may cause creation of a new fst database if input objects arose from different fst databases. However, if objects are subsets of the same `"fst_genoprob"` object, then it reuses the one fst database. Further, if objects have the same directory and file basename for their fst databases, they will be combined without creation of any new fst databases.
 
 See `example(cbind.fst_genoprob)` and `example(rbind.fst_genoprob)` with objects having distinct fst databases.
 
@@ -163,7 +163,7 @@ markers <- dimnames(fapr$X)[[3]][1:10]
 dim(fapr$X[,,markers])
 ```
 
-Two `fst_genoprob` objects using the same database. Combine using `cbind`. Notice that the order of chromosomes is reversed by joining `fapr2` to `fapr3`. Be sure to not overwrite existing fst databases!
+Two `"fst_genoprob"` objects using the same database. Combine using `cbind`. Notice that the order of chromosomes is reversed by joining `fapr2` to `fapr3`. Be sure to not overwrite existing fst databases!
 
 ```{r cbind_two_subsets}
 fapr2 <- fst_genoprob(subset(apr, chr="2"), "aprx", tmpdir)
@@ -173,9 +173,9 @@ dim(fapr32)
 list.files(tmpdir)
 ```
 
-### Looking under the hood at `fst_genoprob` object
+### Looking under the hood at `"fst_genoprob"` object
 
-Here are the names of elements in a `fst_genoprob` object:
+Here are the names of elements in a `"fst_genoprob"` object:
 
 ```{r names_fapr}
 names(unclass(fapr))
@@ -189,7 +189,7 @@ unclass(fapr)$fst
 sapply(unclass(fapr)[c("ind","chr","mar")], length)
 ```
 
-A `fst_genoprob` object has all the original information. Thus, it is possible to restore the original object from a `subset` (but not necessarily from a `cbind` or `rbind`). Here is an example.
+A `"fst_genoprob"` object has all the original information. Thus, it is possible to restore the original object from a `subset` (but not necessarily from a `cbind` or `rbind`). Here is an example.
 
 ```{r restore_from_subset}
 fapr23 <- subset(fapr, chr=c("2","3"))
@@ -206,7 +206,7 @@ system.time(pr <- calc_genoprob(DOex, error_prob=0.002))
 ```
 
 ```{r create_db_time}
-system.time(fpr <- fst_genoprob(pr, "pr", tmpdir, verbose = FALSE))
+system.time(fpr <- fst_genoprob(pr, "pr", tmpdir, quiet=TRUE, overwrite=TRUE))
 ```
 
 ```{r read_db_time}
@@ -217,14 +217,9 @@ unlink(tmpfile)
 ```
 
 ```{r function_to_get_files}
-files <- function(fst_genoprob)
-{
-    path <- unclass(fst_genoprob)$fst
-    file.path(dirname(path), list.files(dirname(path), paste0("^", basename(path))))
-}
 fst_size <- function(fst_genoprob)
 {
-    sum(file.size(files(fst_genoprob))) / 1024^2
+    sum(file.size(fst_files(fst_genoprob))) / 1024^2
 }
 
 ```
@@ -252,4 +247,9 @@ system.time({
   for(i in seq(100))
     tmp <- fpr[["2"]]
 })
+```
+
+```{r clean_up_files, include=FALSE}
+unlink(fst_files(fpr))
+unlink(fst_files(fapr))
 ```

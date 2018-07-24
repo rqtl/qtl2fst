@@ -1,20 +1,24 @@
-# fst_genoprob_restore
+# fst_restore
 #' Restore fst_genoprob object to original dimensions.
 #'
-#' Any \code{\link{fst_genoprob}} object has embedded its original data and dimensions.
-#' This resets elements \code{ind}, \code{chr} and \code{mar} to the full set.
+#' Any `"fst_genoprob"` object has embedded its original data and dimensions.
+#' This resets elements `ind`, `chr` and `mar` to the full set.
 #'
-#' @param object Object of class \code{\link{fst_genoprob}}.
+#' @md
 #'
-#' @return Element of class \code{\link{fst_genoprob}}.
+#' @param object Object of class `"fst_genoprob"` as produced by [fst_genoprob()].
+#'
+#' @return Input `object` with dimensions restored.
 #'
 #' @details
-#' Object is unclassed and elements \code{ind}, \code{chr} and \code{mar} are changed before
-#' reseting attributes as \code{\link{fst_genoprob}} object.
-#' See \code{\link{fst_genoprob}} return description for details.
+#' Object is unclassed and elements `ind`, `chr` and `mar` are changed before
+#' reseting attributes as `"fst_genoprob"` object.
+#' See [fst_genoprob()] for details on the object.
 #'
 #' @export
 #' @keywords utilities
+#'
+#' @seealso [fst_genoprob()], [fst_extract()]
 #'
 #' @examples
 #' library(qtl2)
@@ -22,14 +26,15 @@
 #' map <- insert_pseudomarkers(grav2$gmap, step=1)
 #' probs <- calc_genoprob(grav2, map, error_prob=0.002)
 #' dir <- tempdir()
-#' fprobs <- fst_genoprob(probs, "grav2", dir)
+#' fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
 #' dim(fprobs)
 #' fprobs2 <- subset(fprobs, chr=1:2)
 #' dim(fprobs2)
-#' fprobs5 <- fst_genoprob_restore(fprobs2)
+#' fprobs5 <- fst_restore(fprobs2)
 #' dim(fprobs5)
+#' \dontshow{unlink( fst_files(fprobs) )}
 #'
-fst_genoprob_restore <- function(object) {
+fst_restore <- function(object) {
     if(!inherits(object, "fst_genoprob"))
         stop("object must inherit class fst_genoprob")
 
@@ -51,4 +56,14 @@ fst_genoprob_restore <- function(object) {
     class(result) <- attrs$class
 
     result
+}
+
+#' @export
+#' @describeIn fst_restore Deprecated version (to be removed).
+fst_genoprob_restore <-
+    function(object)
+{
+    warning("fst_genoprob_restore() is deprecated and will be removed; use fst_restore() instead.")
+
+    fst_restore(object)
 }
