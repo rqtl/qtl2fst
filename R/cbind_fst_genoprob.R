@@ -9,6 +9,7 @@
 #' Needed if objects have different fst databases.
 #' @param fdir Directory for fst database.
 #' @param overwrite If FALSE (the default), refuse to overwrite existing `.fst` files.
+#' @param quiet If TRUE, don't show any messages. Passed to [fst_genoprob()].
 #'
 #' @return A single genotype probability object.
 #'
@@ -26,8 +27,11 @@
 #' @export
 #' @export cbind.fst_genoprob
 #' @method cbind fst_genoprob
-#'
-cbind.fst_genoprob <- function(..., fbase=NULL, fdir = NULL, overwrite=FALSE) {
+#' @seealso [rbind.fst_genoprob()]
+
+cbind.fst_genoprob <-
+    function(..., fbase=NULL, fdir = NULL, overwrite=FALSE, quiet=FALSE)
+{
     # to cbind: probs, is_x_chr
     # to pass through (must match): crosstype, alleles, alleleprobs
 
@@ -36,12 +40,14 @@ cbind.fst_genoprob <- function(..., fbase=NULL, fdir = NULL, overwrite=FALSE) {
              append_chr,
              cbind,
              fbase=fbase, fdir=fdir,
-             overwrite=overwrite)
+             overwrite=overwrite, quiet=quiet)
 }
 
 # FIX_ME: add explanation
-bind_fst <- function(args, check_fn, append_fn, bind_fn,
-                     fbase=NULL, fdir = NULL, overwrite=FALSE) {
+bind_fst <-
+    function(args, check_fn, append_fn, bind_fn,
+             fbase=NULL, fdir = NULL, overwrite=FALSE, quiet=FALSE)
+{
 
     result <- args[[1]]
     if(!inherits(result, "fst_genoprob"))
@@ -104,7 +110,7 @@ bind_fst <- function(args, check_fn, append_fn, bind_fn,
         result <- bind_fn(result, argsi)
     }
 
-    fst_genoprob(result, fbase=fbase, fdir=fdir, overwrite=overwrite)
+    fst_genoprob(result, fbase=fbase, fdir=fdir, overwrite=overwrite, quiet=quiet)
 }
 
 # FIX_ME: add explanation

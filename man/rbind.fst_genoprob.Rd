@@ -5,7 +5,7 @@
 \title{Join genotype probabilities for different individuals}
 \usage{
 \method{rbind}{fst_genoprob}(..., fbase = NULL, fdir = NULL,
-  overwrite = FALSE)
+  overwrite = FALSE, quiet = FALSE)
 }
 \arguments{
 \item{...}{Genotype probability objects as produced by
@@ -18,6 +18,8 @@ Needed if objects have different fst databases.}
 \item{fdir}{Directory for fst database.}
 
 \item{overwrite}{If FALSE (the default), refuse to overwrite existing \code{.fst} files}
+
+\item{quiet}{If TRUE, don't show any messages. Passed to \code{\link[=fst_genoprob]{fst_genoprob()}}.}
 }
 \value{
 A single genotype probability object.
@@ -37,4 +39,7 @@ fprobsA <- fst_genoprob(probsA, "exampleAr", dir, overwrite=TRUE)
 fprobsB <- fst_genoprob(probsB, "exampleBr", dir, overwrite=TRUE)
 fprobs <- rbind(fprobsA, fprobsB, fbase = "exampleABr")
 
+}
+\seealso{
+\code{\link[=cbind.fst_genoprob]{cbind.fst_genoprob()}}
 }

@@ -20,6 +20,9 @@
   `rbind.fst_genoprob()` will write the index `.fst` file for the new
   object.
 
+- Added `overwrite` and `quiet` arguments to `cbind.fst_genoprob()`
+  and `rbind.fst_genoprob()`.
+
 - Added a function `fst_path()` for viewing the path to the files behind
   an `"fst_genoprob"` database.
 
