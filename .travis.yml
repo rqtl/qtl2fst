@@ -10,7 +10,7 @@ r_packages:
  - dplyr
 
 r_github_packages:
- - kbroman/qtl2
+ - rqtl/qtl2
 
 warnings_are_errors: true
 

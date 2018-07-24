@@ -20,3 +20,4 @@ URL: https://github.com/rqtl/qtl2fst
 LazyData: true
 ByteCompile: true
 RoxygenNote: 6.0.1
+Remotes: rqtl/qtl2
