@@ -1,3 +1,10 @@
+## qtl2fst 0.3-1 (2019-03-10)
+
+### Minor changes
+
+- Use Markdown for function documentation, throughout
+
+
 ## qtl2fst 0.2-2 (2018-07-23)
 
 ### Interface changes

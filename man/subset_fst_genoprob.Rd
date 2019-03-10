@@ -7,10 +7,11 @@
 \usage{
 subset_fst_genoprob(x, ind = NULL, chr = NULL, mar = NULL, ...)
 
-\method{subset}{fst_genoprob}(x, ind = NULL, chr = NULL, mar = NULL, ...)
+\method{subset}{fst_genoprob}(x, ind = NULL, chr = NULL, mar = NULL,
+  ...)
 }
 \arguments{
-\item{x}{Genotype probabilities as output from \code{\link{fst_genoprob}}.}
+\item{x}{Genotype probabilities as output from \code{\link[=fst_genoprob]{fst_genoprob()}}.}
 
 \item{ind}{A vector of individuals: numeric indices, logical
 values, or character string IDs}
@@ -28,7 +29,7 @@ individuals and/or chromsomes.
 }
 \description{
 Pull out a specified set of individuals and/or chromosomes from
-the results of \code{\link{fst_genoprob}}.
+the results of \code{\link[=fst_genoprob]{fst_genoprob()}}.
 }
 \examples{
 library(qtl2)

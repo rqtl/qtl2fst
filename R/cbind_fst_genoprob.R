@@ -1,10 +1,10 @@
 #' Join genotype probabilities for different chromosomes
 #'
 #' Join multiple genotype probability objects, as produced by
-#' \code{\link{fst_genoprob}} for different individuals.
+#' [fst_genoprob()] for different individuals.
 #'
 #' @param ... Genotype probability objects as produced by
-#' \code{\link{fst_genoprob}}. Must have the same set of individuals.
+#' [fst_genoprob()]. Must have the same set of individuals.
 #' @param fbase Base of fileame for fst database.
 #' Needed if objects have different fst databases.
 #' @param fdir Directory for fst database.

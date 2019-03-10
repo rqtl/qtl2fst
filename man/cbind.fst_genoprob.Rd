@@ -9,23 +9,23 @@
 }
 \arguments{
 \item{...}{Genotype probability objects as produced by
-\code{\link{fst_genoprob}}. Must have the same set of individuals.}
+\code{\link[=fst_genoprob]{fst_genoprob()}}. Must have the same set of individuals.}
 
 \item{fbase}{Base of fileame for fst database.
 Needed if objects have different fst databases.}
 
 \item{fdir}{Directory for fst database.}
 
-\item{overwrite}{If FALSE (the default), refuse to overwrite existing `.fst` files.}
+\item{overwrite}{If FALSE (the default), refuse to overwrite existing \code{.fst} files.}
 
-\item{quiet}{If TRUE, don't show any messages. Passed to [fst_genoprob()].}
+\item{quiet}{If TRUE, don't show any messages. Passed to \code{\link[=fst_genoprob]{fst_genoprob()}}.}
 }
 \value{
 A single genotype probability object.
 }
 \description{
 Join multiple genotype probability objects, as produced by
-\code{\link{fst_genoprob}} for different individuals.
+\code{\link[=fst_genoprob]{fst_genoprob()}} for different individuals.
 }
 \examples{
 library(qtl2)
@@ -40,5 +40,5 @@ fprobs <- cbind(fprobsA, fprobsB, fbase = "exampleABc", overwrite=TRUE)
 
 }
 \seealso{
-[rbind.fst_genoprob()]
+\code{\link[=rbind.fst_genoprob]{rbind.fst_genoprob()}}
 }

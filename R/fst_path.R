@@ -2,8 +2,6 @@
 #'
 #' Get the path used in an fst_genoprob object.
 #'
-#' @md
-#'
 #' @param object An object of class `"fst_genoprob"` as created by [fst_genoprob()].
 #'
 #' @return Character string with path (and initial file stem) for files used in the input `object`.
@@ -34,8 +32,6 @@ fst_path <-
 #' Replace the path used in fst_genoprob object
 #'
 #' Replace the path used in an fst_genoprob object.
-#'
-#' @md
 #'
 #' @param object An object of class `"fst_genoprob"` as created by [fst_genoprob()].
 #'

@@ -3,8 +3,6 @@
 #'
 #' Save an R/qtl2 genotype probabilities object to a set of fst files for fast access with reduced memory usage.
 #'
-#' @md
-#'
 #' @param genoprob Object of class `"calc_genoprob"`. For details, see the
 #' [R/qtl2 developer guide](https://kbroman.org/qtl2/assets/vignettes/developer_guide.html)
 #' and [qtl2::calc_genoprob()].

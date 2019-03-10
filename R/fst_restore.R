@@ -4,8 +4,6 @@
 #' Any `"fst_genoprob"` object has embedded its original data and dimensions.
 #' This resets elements `ind`, `chr` and `mar` to the full set.
 #'
-#' @md
-#'
 #' @param object Object of class `"fst_genoprob"` as produced by [fst_genoprob()].
 #'
 #' @return Input `object` with dimensions restored.

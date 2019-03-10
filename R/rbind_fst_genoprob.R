@@ -3,8 +3,6 @@
 #' Join multiple genotype probability objects, as produced by
 #' [fst_genoprob()] for different individuals.
 #'
-#' @md
-#'
 #' @param ... Genotype probability objects as produced by
 #' [fst_genoprob()]. Must have the same set of markers and
 #' genotypes.

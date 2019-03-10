@@ -3,8 +3,6 @@
 #'
 #' Extract genotype probabilities from fst database as an ordinary calc_genoprob object.
 #'
-#' @md
-#'
 #' @param object Object of class `"fst_genoprob"`, linking to an fst database of genotype probabilities.
 #'
 #' @return An object of class `"calc_genoprob"` (a list of 3-dimensional arrays).

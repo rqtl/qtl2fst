@@ -3,9 +3,9 @@
 #' Subsetting genotype probabilities
 #'
 #' Pull out a specified set of individuals and/or chromosomes from
-#' the results of \code{\link{fst_genoprob}}.
+#' the results of [fst_genoprob()].
 #'
-#' @param x Genotype probabilities as output from \code{\link{fst_genoprob}}.
+#' @param x Genotype probabilities as output from [fst_genoprob()].
 #' @param ind A vector of individuals: numeric indices, logical
 #' values, or character string IDs
 #' @param chr A vector of chromosomes: logical values, or character
