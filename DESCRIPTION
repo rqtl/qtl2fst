@@ -3,9 +3,15 @@ Version: 0.3-1
 Date: 2019-03-10
 Title: Fst Database for R/qtl2 Genotype Probabilities
 Description: Functions to rbind, cbind and subset `calc_genoprob` objects.
-Author: Karl W Broman <broman@wisc.edu>, Brian S Yandell <byandell@wisc.edu>,
-    and Petr Simecek
+Author: Karl W Broman [aut, cre] (<https://orcid.org/0000-0002-4914-6671>),
+    Brian S Yandell [aut] (<https://orcid.org/0000-0002-8774-9377>),
+    Petr Simecek [aut] (<https://orcid.org/0000-0002-2922-7183>)
 Maintainer: Karl W Broman <broman@wisc.edu>
+Authors@R: c(person("Karl W", "Broman", role=c("aut", "cre"),
+                    email="broman@wisc.edu", comment=c(ORCID = "0000-0002-4914-6671")),
+             person("Brian S", "Yandell", role="aut",
+                    email="byandell@wisc.edu", comment=c(ORCID = "0000-0002-8774-9377")),
+             person("Petr", "Simecek", role="aut", comment=c(ORCID = "0000-0002-2922-7183")))
 Depends:
     R (>= 3.1.0)
 Imports:
