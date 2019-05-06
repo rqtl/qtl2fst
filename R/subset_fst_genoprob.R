@@ -83,7 +83,7 @@ get_dimension <- function(ind, indID, type = "individual") {
         ind <- indID[ind] # convert to character strings
     }
     else if(is.numeric(ind)) {
-        if(any(ind < 1 || ind > n_ind))
+        if(any(ind < 1 | ind > n_ind))
             stop("Numeric ind out of allowed range [1 - ", n_ind, "]")
         ind <- indID[ind] # convert to character strings
     }
