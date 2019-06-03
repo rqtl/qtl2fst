@@ -1,6 +1,8 @@
-## qtl2fst 0.3-1 (2019-03-10)
+## qtl2fst 0.20 (2019-06-03)
 
 ### Minor changes
+
+- Renumbering to match R/qtl2 version
 
 - Use Markdown for function documentation, throughout
 
