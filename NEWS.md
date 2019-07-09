@@ -1,3 +1,12 @@
+## qtl2fst 0.21 (2019-07-09)
+
+### Major changes
+
+- Added `calc_genoprob_fst()` which combines `calc_genoprob()` and
+  `fst_genoprob()` to save use of RAM when calculating genotype
+  probabilties.
+
+
 ## qtl2fst 0.20 (2019-06-03)
 
 ### Minor changes

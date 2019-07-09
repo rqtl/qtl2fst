@@ -1,6 +1,6 @@
 Package: qtl2fst
-Version: 0.20
-Date: 2019-06-03
+Version: 0.21-1
+Date: 2019-07-09
 Title: Fst Database for R/qtl2 Genotype Probabilities
 Description: Functions to rbind, cbind and subset `calc_genoprob` objects.
 Author: Karl W Broman [aut, cre] (<https://orcid.org/0000-0002-4914-6671>),
@@ -15,11 +15,12 @@ Authors@R: c(person("Karl W", "Broman", role=c("aut", "cre"),
 Depends:
     R (>= 3.1.0)
 Imports:
-    fst
+    fst,
+    qtl2 (>= 0.15-1)
 Suggests:
     testthat,
-    qtl2 (>= 0.15-1),
-    knitr, rmarkdown
+    knitr,
+    rmarkdown
 VignetteBuilder: knitr
 License: GPL-3
 URL: https://github.com/rqtl/qtl2fst
