@@ -85,9 +85,10 @@ function(cross, fbase, fdir=".", map=NULL, error_prob=1e-4,
 
     pr_fst <- setNames(vector("list", length(cross$geno)), names(cross$geno))
     for(chr in names(cross$geno)) {
+        if(!quiet) message("Chr ", chr)
         pr <- calc_genoprob(cross[,chr], map[chr], error_prob=error_prob,
                             map_function=map_function, lowmem=lowmem,
-                            quiet=quiet, cores=cores)
+                            quiet=TRUE, cores=cores)
 
         pr_fst[[chr]] <- fst_genoprob(pr, fbase, fdir, compress=compress,
                                       overwrite=overwrite, quiet=quiet)
