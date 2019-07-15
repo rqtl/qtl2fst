@@ -10,6 +10,9 @@
   `genoprob_to_alleleprob()` and `fst_genoprob()` to save use of RAM
   when converting genotype probabilties to allele dosages.
 
+- Rewrite the vignette using the iron dataset, so that it's faster to
+  build.
+
 
 ## qtl2fst 0.20 (2019-06-03)
 
