@@ -1,10 +1,14 @@
-## qtl2fst 0.21 (2019-07-09)
+## qtl2fst 0.21-2 (2019-07-15)
 
 ### Major changes
 
 - Added `calc_genoprob_fst()` which combines `calc_genoprob()` and
   `fst_genoprob()` to save use of RAM when calculating genotype
   probabilties.
+
+- Added `genoprob_to_alleleprob_fst()` which combines
+  `genoprob_to_alleleprob()` and `fst_genoprob()` to save use of RAM
+  when converting genotype probabilties to allele dosages.
 
 
 ## qtl2fst 0.20 (2019-06-03)
