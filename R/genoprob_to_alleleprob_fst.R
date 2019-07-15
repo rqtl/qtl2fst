@@ -25,7 +25,6 @@
 #'
 #' @export
 #' @importFrom qtl2 genoprob_to_alleleprob
-#' @importFrom stats setNames
 #' @keywords utilities
 #' @seealso [qtl2::genoprob_to_alleleprob()], [fst_genoprob()]
 #'
@@ -49,14 +48,18 @@ function(probs, fbase, fdir=".", quiet=TRUE, cores=1, compress=0, overwrite=FALS
 {
     if(is.null(fbase) || missing(fbase)) stop("fbase must be provided")
 
-    apr_fst <- setNames(vector("list", length(probs)), names(probs))
-    for(chr in names(probs)) {
-        if(!quiet) message("Chr ", chr)
-        apr <- genoprob_to_alleleprob(probs[,chr], quiet=TRUE, cores=cores)
+    cores <- setup_cluster(cores)
 
-        apr_fst[[chr]] <- fst_genoprob(apr, fbase, fdir, compress=compress,
-                                       overwrite=overwrite, quiet=quiet)
+    by_chr_function <- function(chr) {
+        if(!quiet) message("Chr ", chr)
+        apr <- genoprob_to_alleleprob(probs[,chr], quiet=TRUE, cores=1)
+
+        fst_genoprob(apr, fbase, fdir, compress=compress,
+                     overwrite=overwrite, quiet=quiet)
     }
+
+    apr_fst <- cluster_lapply(cores, names(probs), by_chr_function)
+    names(apr_fst) <- names(probs)
 
     do.call("cbind", apr_fst)
 }
