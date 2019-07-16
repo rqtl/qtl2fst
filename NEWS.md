@@ -1,4 +1,4 @@
-## qtl2fst 0.21-2 (2019-07-15)
+## qtl2fst 0.21-4 (2019-07-15)
 
 ### Major changes
 
@@ -10,7 +10,10 @@
   `genoprob_to_alleleprob()` and `fst_genoprob()` to save use of RAM
   when converting genotype probabilties to allele dosages.
 
-- Rewrite the vignette using the iron dataset, so that it's faster to
+- Added `summary()` and `print()` functions for `"fst_genoprob"`
+  objects.
+
+- Rewrote the vignette using the iron dataset, so that it's faster to
   build.
 
 
