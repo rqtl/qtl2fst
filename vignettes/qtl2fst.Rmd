@@ -1,0 +1,257 @@
+---
+title: "qtl2fst user guide"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Create fst_genoprob for qtl2 data}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 5)
+```
+
+Memory usage can be a big obstacle in the use of
+[R/qtl2](http://kbroman.org/qtl2), particularly regarding the QTL
+genotype probabilities calculated by `calc_genoprob()`. For dense
+markers in multi-parent populations, these can use gigabytes of RAM.
+
+This led us to develop ways to store the genotype probabilities on
+disk. In the present package, we rely on the
+[fst package](http://www.fstpackage.org), which includes the option to
+compress the data.
+
+Let's first load the R/qtl2 and R/qtl2fst packages.
+
+```{r, load_packages}
+library(qtl2)
+library(qtl2fst)
+```
+
+In this vignette, we'll give a quick illustration of the
+[R/qtl2fst](https://github.com/rqtl/qtl2fst) package using the
+[iron
+dataset](https://kbroman.org/qtl2/pages/sampledata.html#f2-intercross)
+included with [R/qtl2](https://kbroman.org/qtl2).
+We'll first load the data.
+
+```{r, load_iron_data}
+iron <- read_cross2(system.file("extdata", "iron.zip", package="qtl2"))
+```
+
+Let's calculate the genotype probabilities and convert them to allele probabilities.
+
+```{r, calc_alleleprob}
+pr <- calc_genoprob(iron, error_prob=0.002)
+apr <- genoprob_to_alleleprob(pr)
+```
+
+Use the function `fst_genoprob()` to write the probabilities to a fst database.
+You could do the same thing with the allele probabilities.
+
+```{r write_fst_db}
+tmpdir <- file.path(tempdir(), "iron_genoprob")
+dir.create(tmpdir)
+fpr <- fst_genoprob(pr, "pr", tmpdir)
+fapr <- fst_genoprob(apr, "apr", tmpdir)
+```
+
+The genotype probabilities are saved in a set of files, one per
+chromosome. There is also an RDS index file, which is a copy of the
+index object returned by `fst_genoprob()`.
+
+```{r list_files}
+list.files(tmpdir)
+```
+
+You can treat the `fpr` and `fapr` objects as if they were the
+genotype probabilities themselves. For example, use `names()` to get
+the chromosome names.
+
+```{r, names_fpr}
+names(fpr)
+```
+
+### Selecting one chromosome
+
+If you selecting a chromosome, it will be read from the fst database
+and into an array.
+
+```{r, read_chromosome}
+apr_X <- fapr[["X"]]
+dim(apr_X)
+```
+
+You can also use the `$` operator.
+
+```{r}
+apr_X <- fapr$X
+dim(apr_X)
+```
+
+### Subsetting by ind, chr, mar
+
+You can subset by individuals, chromosome, and markers, with
+`subset(object,ind,chr,mar)` or `[ind,chr,mar]`. Just the selected
+portion will be read, and the fst database will not be altered.
+
+```{r subset_fapr}
+selected_ind <- subset(fapr, ind=1:20, chr=c("2","3"))
+dim(fapr)
+```
+
+You can also subset with brackets in various ways.
+
+```{r subset_brackets}
+fapr_sub1 <- fapr[1:20, c("2","3")][["3"]]
+fapr_sub2 <- fapr[,"2"]
+fapr_sub23 <- fapr[,c("2","3")]
+fapr_subX <- fapr[,"X"]
+```
+
+You can use a third dimension for markers, but be careful that if you
+select a subset of markers that excludes one or more chromosomes,
+those will be dropped.
+
+```{r select_markers}
+dim(subset(fapr, mar=1:30))
+dim(fapr[ , , dimnames(fapr)$mar$X[1:2]])
+```
+
+### Binding by columns or rows.
+
+Binding by columns (chromosomes) or rows (individuals) may cause
+creation of a new fst database if input objects arose from different
+fst databases. However, if objects are subsets of the same
+`"fst_genoprob"` object, then it reuses the one fst database. Further,
+if objects have the same directory and file basename for their fst
+databases, they will be combined without creation of any new fst
+databases.
+
+See `example(cbind.fst_genoprob)` and `example(rbind.fst_genoprob)`
+with objects having distinct fst databases.
+
+Here's column bind (chromosomes).
+
+```{r cbind_fapr}
+fapr_sub223 <- cbind(fapr_sub2,fapr_sub23)
+```
+
+And here's row bind (individuals)..
+
+```{r rbind_fapr}
+f23a <- fapr[1:20, c("2","3")]
+f23b <- fapr[40:79, c("2","3")]
+f23 <- rbind(f23a, f23b)
+```
+
+Subset on markers. This way only extracts the selected `markers` from
+the fst database before creating the array.
+
+```{r subset_markers}
+markers <- dimnames(fapr$X)[[3]][1:2]
+dim(fapr[,,markers]$X)
+```
+
+This way extracts all markers on `X`, creates the array, then subsets on selected `markers`.
+
+```{r extract_markers_chr_X}
+markers <- dimnames(fapr$X)[[3]]
+dim(fapr$X[,,markers[1:2]])
+```
+
+Two `"fst_genoprob"` objects using the same database. Combine using `cbind`. Notice that the order of chromosomes is reversed by joining `fapr2` to `fapr3`. Be sure to not overwrite existing fst databases!
+
+```{r cbind_two_subsets}
+fapr2 <- fst_genoprob(subset(apr, chr="2"), "aprx", tmpdir)
+fapr3 <- fst_genoprob(subset(apr, chr="3"), "aprx", tmpdir)
+fapr32 <- cbind(fapr3,fapr2)
+dim(fapr32)
+list.files(tmpdir)
+```
+
+### Looking under the hood at `"fst_genoprob"` object
+
+Here are the names of elements in a `"fst_genoprob"` object:
+
+```{r names_fapr}
+names(unclass(fapr))
+```
+
+```{r fapr_fst_path}
+unclass(fapr)$fst
+```
+
+```{r ind_chr_mar_pieces}
+sapply(unclass(fapr)[c("ind","chr","mar")], length)
+```
+
+An `"fst_genoprob"` object has all the original information. Thus, it
+is possible to restore the original object from a `subset` (but not
+necessarily from a `cbind` or `rbind`). Here is an example.
+
+```{r restore_from_subset}
+fapr23 <- subset(fapr, chr=c("2","3"))
+dim(fapr23)
+dim(fst_genoprob_restore(fapr23))
+```
+
+### Paths
+
+Use `fst_path()` to determine the path to the fst database.
+
+```{r path_to_fpr}
+fst_path(fpr)
+```
+
+If you move the fst database, or if it's using a relative path and you
+want to work with it from a different directory, use `replace_path()`.
+
+```{r new_path_to_fpr}
+fpr_newpath <- replace_path(fpr, tempdir())
+```
+
+### Direct construction of the fst database
+
+Since the genotype probabilities can be really large, it's very RAM
+intensive to calculate all of them and then create the database.
+Instead, you can use `calc_genoprob_fst()` to run `calc_genoprob()`
+and then `fst_genoprob()` for one chromosome at a time.
+
+```{r calc_genoprob_fst}
+fpr <- calc_genoprob_fst(iron, "pr", tmpdir, error_prob=0.002, overwrite=TRUE)
+```
+
+Similarly, `genoprob_to_alleleprob_fst()` will run
+`genoprob_to_alleleprob()` and then `fst_genoprob()` for one
+chromosome at a time.
+
+```{r genoprob_to_alleleprob_fst}
+fapr <- genoprob_to_alleleprob_fst(pr, "apr", tmpdir, overwrite=TRUE)
+```
+
+### Genome scans
+
+You can use the `fst_genoprob()` object in place of the genotype
+probabilities, in genome scans with `scan1()`.
+
+```{r genome_scan}
+Xcovar <- get_x_covar(iron)
+scan_pr <- scan1(fpr, iron$pheno, Xcovar=Xcovar)
+find_peaks(scan_pr, iron$pmap, threshold=4)
+```
+
+
+Similarly for calculating QTL coefficients with `scan1coef()` or
+scan1blup()`:
+
+```{r coef}
+coef16 <- scan1coef(fpr[,"16"], iron$pheno[,1])
+blup16 <- scan1blup(fpr[,"16"], iron$pheno[,1])
+```
+
+
+```{r clean_up_files, include=FALSE}
+unlink(tmpdir)
+```
