@@ -13,13 +13,13 @@ knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 5)
 ```
 
 Memory usage can be a big obstacle in the use of
-[R/qtl2](http://kbroman.org/qtl2), particularly regarding the QTL
+[R/qtl2](https://kbroman.org/qtl2), particularly regarding the QTL
 genotype probabilities calculated by `calc_genoprob()`. For dense
 markers in multi-parent populations, these can use gigabytes of RAM.
 
 This led us to develop ways to store the genotype probabilities on
 disk. In the present package, we rely on the
-[fst package](http://www.fstpackage.org), which includes the option to
+[fst package](https://www.fstpackage.org), which includes the option to
 compress the data.
 
 Let's first load the R/qtl2 and R/qtl2fst packages.

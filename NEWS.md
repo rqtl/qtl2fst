@@ -65,5 +65,5 @@
 
 - New package for storing [R/qtl2](https://kbroman.org/qtl2) genotype
   probabilities in files using the [fst
-  package](http://www.fstpackage.org), for fast access with reduced
+  package](https://www.fstpackage.org), for fast access with reduced
   memory usage.
