@@ -18,18 +18,14 @@ files in the [feather](https://github.com/wesm/feather) format.
 ### Installation
 
 Make sure you have the latest version of [R](https://cran.r-project.org).
-Then install R/qtl2 using the following. (For more
-detail, see the instructions at <https://kbroman.org/qtl2>.)
+Then install R/qtl2fst using the following:
 
-    install.packages("qtl2", repos="https://rqtl.org/qtl2cran")
+    install.packages("qtl2fst", repos="https://rqtl.org/qtl2cran")
 
-Next install the [fst](https://fstpackage.github.io),
-[dplyr](https://dplyr.tidyverse.org/), and
-[devtools](https://github.com/r-lib/devtools) packages.
-
-    install.packages(c("fst", "dplyr", "devtools"))
-
-Once you have installed these, install qtl2fst from GitHub:
+You can also install the package from GitHub using
+[devtools](https://github.com/r-lib/devtools). You will first need to
+install [R/qtl2](https://kbroman.org/qtl2) and
+[fst](https://fstpackage.github.io). Then install qtl2fst as follows:
 
     devtools::install_github("rqtl/qtl2fst")
 
