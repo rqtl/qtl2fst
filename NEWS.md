@@ -1,4 +1,4 @@
-## qtl2fst 0.21-4 (2019-07-15)
+## qtl2fst 0.21-5 (2019-12-27)
 
 ### Major changes
 
@@ -15,6 +15,12 @@
 
 - Rewrote the vignette using the iron dataset, so that it's faster to
   build.
+
+### Minor changes
+
+- Fixed use of `class()`, avoiding constructions like
+  `"blah" %in% class(object)` and instead using
+  `inherits(object, "blah")`.
 
 
 ## qtl2fst 0.20 (2019-06-03)
