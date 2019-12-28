@@ -44,7 +44,7 @@ fst_extract <-
 
     # strip off fst_genoprob from class
     cl <- attrs$class
-    class(result) <- cl[cl=="fst_genoprob"]
+    class(result) <- cl[cl != "fst_genoprob"]
 
     result
 }
