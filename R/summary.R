@@ -13,7 +13,7 @@
 summary.fst_genoprob <-
 function(object, ...)
 {
-    if(!inherits(objecvt, "fst_genoprob")) {
+    if(!inherits(object, "fst_genoprob")) {
         stop('Input should have class "fst_genoprob".')
     }
 
