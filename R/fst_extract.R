@@ -42,7 +42,9 @@ fst_extract <-
     for(a in names(attrs)[-ignore])
         attr(result, a) <- attrs[[a]]
 
-    class(result) <- attrs$class[-1]
+    # strip off fst_genoprob from class
+    cl <- attrs$class
+    class(result) <- cl[cl != "fst_genoprob"]
 
     result
 }
