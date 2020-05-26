@@ -37,4 +37,4 @@ To also install vignettes, include `build_vignettes=TRUE`:
 
 #### License
 
-[Licensed](LICENSE) under [GPL-3](https://www.r-project.org/Licenses/GPL-3).
+Licensed under [GPL-3](https://www.r-project.org/Licenses/GPL-3).
