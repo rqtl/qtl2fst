@@ -4,8 +4,15 @@
 \alias{genoprob_to_alleleprob_fst}
 \title{Convert genotype probabilities to allele probabilities and write to fst database}
 \usage{
-genoprob_to_alleleprob_fst(probs, fbase, fdir = ".", quiet = TRUE,
-  cores = 1, compress = 0, overwrite = FALSE)
+genoprob_to_alleleprob_fst(
+  probs,
+  fbase,
+  fdir = ".",
+  quiet = TRUE,
+  cores = 1,
+  compress = 0,
+  overwrite = FALSE
+)
 }
 \arguments{
 \item{probs}{Genotype probabilities, as calculated from

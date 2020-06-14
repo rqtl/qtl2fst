@@ -4,8 +4,15 @@
 \alias{fst_genoprob}
 \title{Store genotype probabilities in fst database}
 \usage{
-fst_genoprob(genoprob, fbase, fdir = ".", compress = 0,
-  verbose = TRUE, overwrite = FALSE, quiet = !verbose)
+fst_genoprob(
+  genoprob,
+  fbase,
+  fdir = ".",
+  compress = 0,
+  verbose = TRUE,
+  overwrite = FALSE,
+  quiet = !verbose
+)
 }
 \arguments{
 \item{genoprob}{Object of class \code{"calc_genoprob"}. For details, see the

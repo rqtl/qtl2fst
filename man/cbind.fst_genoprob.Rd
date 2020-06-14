@@ -4,8 +4,7 @@
 \alias{cbind.fst_genoprob}
 \title{Join genotype probabilities for different chromosomes}
 \usage{
-\method{cbind}{fst_genoprob}(..., fbase = NULL, fdir = NULL,
-  overwrite = FALSE, quiet = FALSE)
+\method{cbind}{fst_genoprob}(..., fbase = NULL, fdir = NULL, overwrite = FALSE, quiet = FALSE)
 }
 \arguments{
 \item{...}{Genotype probability objects as produced by

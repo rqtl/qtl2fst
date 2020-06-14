@@ -7,8 +7,7 @@
 \usage{
 subset_fst_genoprob(x, ind = NULL, chr = NULL, mar = NULL, ...)
 
-\method{subset}{fst_genoprob}(x, ind = NULL, chr = NULL, mar = NULL,
-  ...)
+\method{subset}{fst_genoprob}(x, ind = NULL, chr = NULL, mar = NULL, ...)
 }
 \arguments{
 \item{x}{Genotype probabilities as output from \code{\link[=fst_genoprob]{fst_genoprob()}}.}

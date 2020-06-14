@@ -4,8 +4,7 @@
 \alias{rbind.fst_genoprob}
 \title{Join genotype probabilities for different individuals}
 \usage{
-\method{rbind}{fst_genoprob}(..., fbase = NULL, fdir = NULL,
-  overwrite = FALSE, quiet = FALSE)
+\method{rbind}{fst_genoprob}(..., fbase = NULL, fdir = NULL, overwrite = FALSE, quiet = FALSE)
 }
 \arguments{
 \item{...}{Genotype probability objects as produced by
