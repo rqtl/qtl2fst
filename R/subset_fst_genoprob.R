@@ -27,6 +27,7 @@
 #' pr <- calc_genoprob(grav2)
 #' dir <- tempdir()
 #' fpr <- fst_genoprob(pr, "grav2", dir)
+#'
 #' # keep just individuals 1:5, chromosome 2
 #' prsub <- fpr[1:5,2]
 #' # keep just chromosome 2

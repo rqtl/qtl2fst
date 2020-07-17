@@ -48,7 +48,6 @@
 #' probs <- calc_genoprob(grav2, map, error_prob=0.002)
 #' dir <- tempdir()
 #' fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
-#' \dontshow{unlink(fst_files(fprobs))}
 
 #' @describeIn probs2fst Deprecated version (to be deleted)
 #' @export

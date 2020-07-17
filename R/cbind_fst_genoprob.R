@@ -22,6 +22,8 @@
 #' dir <- tempdir()
 #' fprobsA <- fst_genoprob(probsA, "exampleAc", dir, overwrite=TRUE)
 #' fprobsB <- fst_genoprob(probsB, "exampleBc", dir, overwrite=TRUE)
+#'
+#' # use cbind to combine probabilities for same individuals but different chromosomes
 #' fprobs <- cbind(fprobsA, fprobsB, fbase = "exampleABc", overwrite=TRUE)
 #'
 #' @export

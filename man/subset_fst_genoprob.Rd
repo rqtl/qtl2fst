@@ -37,6 +37,7 @@ grav2 <- read_cross2(system.file("extdata", "grav2.zip", package="qtl2"))
 pr <- calc_genoprob(grav2)
 dir <- tempdir()
 fpr <- fst_genoprob(pr, "grav2", dir)
+
 # keep just individuals 1:5, chromosome 2
 prsub <- fpr[1:5,2]
 # keep just chromosome 2

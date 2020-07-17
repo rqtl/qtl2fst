@@ -72,7 +72,6 @@ map <- insert_pseudomarkers(grav2$gmap, step=1)
 probs <- calc_genoprob(grav2, map, error_prob=0.002)
 dir <- tempdir()
 fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
-\dontshow{unlink(fst_files(fprobs))}
 }
 \seealso{
 \code{\link[=fst_path]{fst_path()}}, \code{\link[=fst_extract]{fst_extract()}}, \code{\link[=fst_files]{fst_files()}}, \code{\link[=replace_path]{replace_path()}}, \code{\link[=fst_restore]{fst_restore()}}

@@ -18,7 +18,6 @@
 #'
 #' fst_path(fprobs)
 #' fst_files(fprobs)
-#' \dontshow{unlink(fst_files(fprobs))}
 fst_path <-
     function(object)
 {
@@ -40,6 +39,24 @@ fst_path <-
 #' @return The input `object` with the path replaced.
 #' If any of the expected files don't exist with the new path, warnings are issued.
 #'
+#' @examples
+#' library(qtl2)
+#' grav2 <- read_cross2(system.file("extdata", "grav2.zip", package="qtl2"))
+#' probs <- calc_genoprob(grav2, error_prob=0.002)
+#' dir <- tempdir()
+#' fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
+#'
+#' # move the probabilities into a different directory
+#' new_dir <- file.path(tempdir(), "subdir")
+#' if(!dir.exists(new_dir)) dir.create(new_dir)
+#' for(file in fst_files(fprobs)) {
+#'    file.rename(file, file.path(new_dir, basename(file)))
+#' }
+#'
+#' # revise the path in fprobs
+#' new_path <- sub(dir, new_dir, fst_path(fprobs))
+#' fprobs <- replace_path(fprobs, new_path)
+
 #' @export
 #' @seealso [fst_path()], [fst_files()]
 replace_path <-

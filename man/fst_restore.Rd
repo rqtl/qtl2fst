@@ -36,12 +36,12 @@ map <- insert_pseudomarkers(grav2$gmap, step=1)
 probs <- calc_genoprob(grav2, map, error_prob=0.002)
 dir <- tempdir()
 fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
-dim(fprobs)
+
+# subset probabilities
 fprobs2 <- subset(fprobs, chr=1:2)
-dim(fprobs2)
+
+# use object to get the full probabilities back
 fprobs5 <- fst_restore(fprobs2)
-dim(fprobs5)
-\dontshow{unlink( fst_files(fprobs) )}
 
 }
 \seealso{

@@ -24,7 +24,6 @@ fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
 
 fst_path(fprobs)
 fst_files(fprobs)
-\dontshow{unlink(fst_files(fprobs))}
 }
 \seealso{
 \code{\link[=fst_path]{fst_path()}}
