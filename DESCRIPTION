@@ -1,5 +1,5 @@
 Package: qtl2fst
-Version: 0.22-3
+Version: 0.22-4
 Date: 2020-07-17
 Title: Database Storage of Genotype Probabilities for QTL Mapping
 Description: Functions using the 'fst' package to store genotype probabilities on disk for 'qtl2' package for mapping quantitative trait loci (QTL).
