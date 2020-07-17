@@ -1,8 +1,8 @@
 Package: qtl2fst
-Version: 0.22-2
-Date: 2020-05-26
-Title: Fst Database for R/qtl2 Genotype Probabilities
-Description: Functions to rbind, cbind and subset `calc_genoprob` objects.
+Version: 0.22-3
+Date: 2020-07-17
+Title: Database Storage of Genotype Probabilities for QTL Mapping
+Description: Functions using the 'fst' package to store genotype probabilities on disk for 'qtl2' package for mapping quantitative trait loci (QTL).
 Author: Karl W Broman [aut, cre] (<https://orcid.org/0000-0002-4914-6671>),
     Brian S Yandell [aut] (<https://orcid.org/0000-0002-8774-9377>),
     Petr Simecek [aut] (<https://orcid.org/0000-0002-2922-7183>)
@@ -29,4 +29,3 @@ ByteCompile: true
 Encoding: UTF-8
 RoxygenNote: 7.1.0
 Roxygen: list(markdown=TRUE)
-Remotes: rqtl/qtl2
