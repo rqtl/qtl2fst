@@ -34,6 +34,9 @@ probs <- calc_genoprob(grav2, map, error_prob=0.002)
 dir <- tempdir()
 fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
 nprobs <- fst_extract(fprobs)
+
+# clean up: remove all the files we created
+unlink(fst_files(fprobs))
 }
 \seealso{
 \code{\link[=fst_genoprob]{fst_genoprob()}}

@@ -60,6 +60,10 @@ probs_fst <- calc_genoprob_fst(iron, "iron", fst_dir, gmap_w_pmar, error_prob=0.
 fst_dir_apr <- file.path(tempdir(), "iron_alleleprob")
 dir.create(fst_dir_apr)
 aprobs_fst <- genoprob_to_alleleprob_fst(probs_fst, "iron", fst_dir_apr)
+
+# clean up: remove all the files we created
+unlink(fst_files(probs_fst))
+unlink(fst_files(aprobs_fst))
 }
 \seealso{
 \code{\link[qtl2:genoprob_to_alleleprob]{qtl2::genoprob_to_alleleprob()}}, \code{\link[=fst_genoprob]{fst_genoprob()}}

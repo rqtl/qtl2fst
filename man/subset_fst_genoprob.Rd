@@ -42,5 +42,8 @@ fpr <- fst_genoprob(pr, "grav2", dir)
 prsub <- fpr[1:5,2]
 # keep just chromosome 2
 prsub2 <- fpr[,2]
+
+# clean up: remove all the files we created
+unlink(fst_files(fpr))
 }
 \keyword{utilities}

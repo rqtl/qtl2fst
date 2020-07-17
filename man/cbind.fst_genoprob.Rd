@@ -39,6 +39,11 @@ fprobsB <- fst_genoprob(probsB, "exampleBc", dir, overwrite=TRUE)
 # use cbind to combine probabilities for same individuals but different chromosomes
 fprobs <- cbind(fprobsA, fprobsB, fbase = "exampleABc", overwrite=TRUE)
 
+# clean up: remove all the files we created
+unlink(fst_files(fprobsA))
+unlink(fst_files(fprobsB))
+unlink(fst_files(fprobs))
+
 }
 \seealso{
 \code{\link[=rbind.fst_genoprob]{rbind.fst_genoprob()}}

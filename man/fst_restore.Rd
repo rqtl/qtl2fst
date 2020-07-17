@@ -43,6 +43,9 @@ fprobs2 <- subset(fprobs, chr=1:2)
 # use object to get the full probabilities back
 fprobs5 <- fst_restore(fprobs2)
 
+# clean up: remove all the files we created
+unlink(fst_files(fprobs))
+
 }
 \seealso{
 \code{\link[=fst_genoprob]{fst_genoprob()}}, \code{\link[=fst_extract]{fst_extract()}}

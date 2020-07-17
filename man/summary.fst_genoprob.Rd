@@ -24,5 +24,8 @@ fpr <- fst_genoprob(pr, "grav2", dir)
 
 # summary of fst_genoprob object
 summary(fpr)
+
+# clean up: remove all the files we created
+unlink(fst_files(fpr))
 }
 \keyword{utilities}

@@ -32,6 +32,9 @@
 #' # use object to get the full probabilities back
 #' fprobs5 <- fst_restore(fprobs2)
 #'
+#' # clean up: remove all the files we created
+#' unlink(fst_files(fprobs))
+#'
 fst_restore <- function(object) {
     if(!inherits(object, "fst_genoprob"))
         stop("object must inherit class fst_genoprob")

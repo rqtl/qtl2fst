@@ -21,6 +21,9 @@
 #'
 #' # summary of fst_genoprob object
 #' summary(fpr)
+#'
+#' # clean up: remove all the files we created
+#' unlink(fst_files(fpr))
 summary.fst_genoprob <-
 function(object, ...)
 {

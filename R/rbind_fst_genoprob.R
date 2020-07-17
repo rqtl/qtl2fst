@@ -27,6 +27,11 @@
 #' # use rbind to combine probabilities for same chromosomes but different individuals
 #' fprobs <- rbind(fprobsA, fprobsB, fbase = "exampleABr")
 #'
+#' # clean up: remove all the files we created
+#' unlink(fst_files(fprobsA))
+#' unlink(fst_files(fprobsB))
+#' unlink(fst_files(fprobs))
+#'
 #' @export
 #' @export rbind.fst_genoprob
 #' @method rbind fst_genoprob

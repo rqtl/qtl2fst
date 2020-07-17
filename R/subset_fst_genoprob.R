@@ -32,6 +32,9 @@
 #' prsub <- fpr[1:5,2]
 #' # keep just chromosome 2
 #' prsub2 <- fpr[,2]
+#'
+#' # clean up: remove all the files we created
+#' unlink(fst_files(fpr))
 subset_fst_genoprob <- function(x, ind=NULL, chr=NULL, mar=NULL, ...) {
     if(!inherits(x, "fst_genoprob"))
             stop("argument ", 1, "is not of class fst_genoprob")
