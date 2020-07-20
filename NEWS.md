@@ -1,3 +1,10 @@
+## qtl2fst 0.22-6 (2020-07-20)
+
+### Minor changes
+
+- Small changes to prepare to post on [CRAN](https://cran.r-project.org).
+
+
 ## qtl2fst 0.22 (2020-05-26)
 
 ### Major changes
