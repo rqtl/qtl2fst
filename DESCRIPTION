@@ -1,8 +1,8 @@
 Package: qtl2fst
-Version: 0.22-4
-Date: 2020-07-17
+Version: 0.22-5
+Date: 2020-07-19
 Title: Database Storage of Genotype Probabilities for QTL Mapping
-Description: Functions using the 'fst' package to store genotype probabilities on disk for 'qtl2' package for mapping quantitative trait loci (QTL).
+Description: Use the 'fst' package to store genotype probabilities on disk for the 'qtl2' package for mapping quantitative trait loci (QTL).
 Author: Karl W Broman [aut, cre] (<https://orcid.org/0000-0002-4914-6671>),
     Brian S Yandell [aut] (<https://orcid.org/0000-0002-8774-9377>),
     Petr Simecek [aut] (<https://orcid.org/0000-0002-2922-7183>)
