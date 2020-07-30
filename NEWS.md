@@ -1,3 +1,10 @@
+## qtl2fst 0.23-1 (2020-07-30)
+
+### Minor changes
+
+- Fix index entry in vignette
+
+
 ## qtl2fst 0.22-7 (2020-07-24)
 
 ### Minor changes

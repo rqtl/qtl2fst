@@ -3,7 +3,7 @@ title: "qtl2fst user guide"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Create fst_genoprob for qtl2 data}
+  %\VignetteIndexEntry{qtl2fst user guide}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
