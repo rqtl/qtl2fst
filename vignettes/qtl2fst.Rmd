@@ -53,8 +53,8 @@ You could do the same thing with the allele probabilities.
 ```{r write_fst_db}
 tmpdir <- file.path(tempdir(), "iron_genoprob")
 dir.create(tmpdir)
-fpr <- fst_genoprob(pr, "pr", tmpdir)
-fapr <- fst_genoprob(apr, "apr", tmpdir)
+fpr <- fst_genoprob(pr, "pr", tmpdir, quiet=TRUE)
+fapr <- fst_genoprob(apr, "apr", tmpdir, quiet=TRUE)
 ```
 
 The genotype probabilities are saved in a set of files, one per
@@ -119,7 +119,7 @@ dim(subset(fapr, mar=1:30))
 dim(fapr[ , , dimnames(fapr)$mar$X[1:2]])
 ```
 
-### Binding by columns or rows.
+### Binding by columns or rows
 
 Binding by columns (chromosomes) or rows (individuals) may cause
 creation of a new fst database if input objects arose from different
@@ -134,7 +134,7 @@ with objects having distinct fst databases.
 
 Here's column bind (chromosomes).
 
-```{r cbind_fapr}
+```{r cbind_fapr, warning=FALSE}
 fapr_sub223 <- cbind(fapr_sub2,fapr_sub23)
 ```
 
@@ -164,8 +164,8 @@ dim(fapr$X[,,markers[1:2]])
 Two `"fst_genoprob"` objects using the same database. Combine using `cbind`. Notice that the order of chromosomes is reversed by joining `fapr2` to `fapr3`. Be sure to not overwrite existing fst databases!
 
 ```{r cbind_two_subsets}
-fapr2 <- fst_genoprob(subset(apr, chr="2"), "aprx", tmpdir)
-fapr3 <- fst_genoprob(subset(apr, chr="3"), "aprx", tmpdir)
+fapr2 <- fst_genoprob(subset(apr, chr="2"), "aprx", tmpdir, quiet=TRUE)
+fapr3 <- fst_genoprob(subset(apr, chr="3"), "aprx", tmpdir, quiet=TRUE)
 fapr32 <- cbind(fapr3,fapr2)
 dim(fapr32)
 list.files(tmpdir)
@@ -194,7 +194,7 @@ necessarily from a `cbind` or `rbind`). Here is an example.
 ```{r restore_from_subset}
 fapr23 <- subset(fapr, chr=c("2","3"))
 dim(fapr23)
-dim(fst_genoprob_restore(fapr23))
+dim(fst_restore(fapr23))
 ```
 
 ### Paths
@@ -208,7 +208,7 @@ fst_path(fpr)
 If you move the fst database, or if it's using a relative path and you
 want to work with it from a different directory, use `replace_path()`.
 
-```{r new_path_to_fpr}
+```{r new_path_to_fpr, warning=FALSE}
 fpr_newpath <- replace_path(fpr, tempdir())
 ```
 
@@ -219,7 +219,7 @@ intensive to calculate all of them and then create the database.
 Instead, you can use `calc_genoprob_fst()` to run `calc_genoprob()`
 and then `fst_genoprob()` for one chromosome at a time.
 
-```{r calc_genoprob_fst}
+```{r calc_genoprob_fst, warning=FALSE}
 fpr <- calc_genoprob_fst(iron, "pr", tmpdir, error_prob=0.002, overwrite=TRUE)
 ```
 
@@ -227,7 +227,7 @@ Similarly, `genoprob_to_alleleprob_fst()` will run
 `genoprob_to_alleleprob()` and then `fst_genoprob()` for one
 chromosome at a time.
 
-```{r genoprob_to_alleleprob_fst}
+```{r genoprob_to_alleleprob_fst, warning=FALSE}
 fapr <- genoprob_to_alleleprob_fst(pr, "apr", tmpdir, overwrite=TRUE)
 ```
 

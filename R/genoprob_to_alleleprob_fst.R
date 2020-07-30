@@ -42,6 +42,10 @@
 #' fst_dir_apr <- file.path(tempdir(), "iron_alleleprob")
 #' dir.create(fst_dir_apr)
 #' aprobs_fst <- genoprob_to_alleleprob_fst(probs_fst, "iron", fst_dir_apr)
+#'
+#' # clean up: remove all the files we created
+#' unlink(fst_files(probs_fst))
+#' unlink(fst_files(aprobs_fst))
 
 genoprob_to_alleleprob_fst <-
 function(probs, fbase, fdir=".", quiet=TRUE, cores=1, compress=0, overwrite=FALSE)

@@ -4,8 +4,7 @@
 \alias{rbind.fst_genoprob}
 \title{Join genotype probabilities for different individuals}
 \usage{
-\method{rbind}{fst_genoprob}(..., fbase = NULL, fdir = NULL,
-  overwrite = FALSE, quiet = FALSE)
+\method{rbind}{fst_genoprob}(..., fbase = NULL, fdir = NULL, overwrite = FALSE, quiet = FALSE)
 }
 \arguments{
 \item{...}{Genotype probability objects as produced by
@@ -37,7 +36,14 @@ probsB <- calc_genoprob(grav2[6:12,], map, error_prob=0.002)
 dir <- tempdir()
 fprobsA <- fst_genoprob(probsA, "exampleAr", dir, overwrite=TRUE)
 fprobsB <- fst_genoprob(probsB, "exampleBr", dir, overwrite=TRUE)
+
+# use rbind to combine probabilities for same chromosomes but different individuals
 fprobs <- rbind(fprobsA, fprobsB, fbase = "exampleABr")
+
+# clean up: remove all the files we created
+unlink(fst_files(fprobsA))
+unlink(fst_files(fprobsB))
+unlink(fst_files(fprobs))
 
 }
 \seealso{

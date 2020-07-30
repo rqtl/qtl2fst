@@ -55,6 +55,9 @@
 #' fst_dir <- file.path(tempdir(), "grav2_genoprob")
 #' dir.create(fst_dir)
 #' probs_fst <- calc_genoprob_fst(grav2, "grav2", fst_dir, gmap_w_pmar, error_prob=0.002)
+#'
+#' # clean up: remove all the files we created
+#' unlink(fst_files(probs_fst))
 
 calc_genoprob_fst <-
 function(cross, fbase, fdir=".", map=NULL, error_prob=1e-4,

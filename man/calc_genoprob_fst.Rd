@@ -4,10 +4,19 @@
 \alias{calc_genoprob_fst}
 \title{Calculate conditional genotype probabilities and write to fst database}
 \usage{
-calc_genoprob_fst(cross, fbase, fdir = ".", map = NULL,
-  error_prob = 0.0001, map_function = c("haldane", "kosambi", "c-f",
-  "morgan"), lowmem = FALSE, quiet = TRUE, cores = 1, compress = 0,
-  overwrite = FALSE)
+calc_genoprob_fst(
+  cross,
+  fbase,
+  fdir = ".",
+  map = NULL,
+  error_prob = 0.0001,
+  map_function = c("haldane", "kosambi", "c-f", "morgan"),
+  lowmem = FALSE,
+  quiet = TRUE,
+  cores = 1,
+  compress = 0,
+  overwrite = FALSE
+)
 }
 \arguments{
 \item{cross}{Object of class \code{"cross2"}. For details, see the
@@ -73,6 +82,9 @@ gmap_w_pmar <- insert_pseudomarkers(grav2$gmap, step=1)
 fst_dir <- file.path(tempdir(), "grav2_genoprob")
 dir.create(fst_dir)
 probs_fst <- calc_genoprob_fst(grav2, "grav2", fst_dir, gmap_w_pmar, error_prob=0.002)
+
+# clean up: remove all the files we created
+unlink(fst_files(probs_fst))
 }
 \seealso{
 \code{\link[qtl2:calc_genoprob]{qtl2::calc_genoprob()}}, \code{\link[=fst_genoprob]{fst_genoprob()}}

@@ -24,7 +24,9 @@ fprobs <- fst_genoprob(probs, "grav2", dir, overwrite=TRUE)
 
 fst_path(fprobs)
 fst_files(fprobs)
-\dontshow{unlink(fst_files(fprobs))}
+
+# clean up: remove all the files we created
+unlink(fst_files(fprobs))
 }
 \seealso{
 \code{\link[=fst_files]{fst_files()}}, \code{\link[=replace_path]{replace_path()}}
