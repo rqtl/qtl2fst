@@ -1,8 +1,12 @@
-## qtl2fst 0.23-1 (2020-07-30)
+## qtl2fst 0.23-2 (2020-11-18)
 
 ### Minor changes
 
 - Fix index entry in vignette
+
+- Added tests for `qtl2::calc_het()` (which previously wasn't working
+  with qtl2fst-based probabilities). Also added tests of
+  `qtl2::calc_entropy()`, `qtl2::calc_geno_freq()`, and `qtl2::compare_genoprob()`.
 
 
 ## qtl2fst 0.22-7 (2020-07-24)
