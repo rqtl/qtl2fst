@@ -16,7 +16,7 @@ Depends:
     R (>= 3.1.0)
 Imports:
     fst,
-    qtl2 (>= 0.15-1)
+    qtl2 (>= 0.23-7)
 Suggests:
     testthat,
     knitr,
