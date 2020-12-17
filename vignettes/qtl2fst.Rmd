@@ -1,6 +1,5 @@
 ---
 title: "qtl2fst user guide"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{qtl2fst user guide}
@@ -171,9 +170,10 @@ dim(fapr32)
 list.files(tmpdir)
 ```
 
-### Looking under the hood at `"fst_genoprob"` object
+### Looking under the hood
 
-Here are the names of elements in a `"fst_genoprob"` object:
+Let's look under the hood at an `"fst_genoprob"` object.
+Here are the names of elements it contains:
 
 ```{r names_fapr}
 names(unclass(fapr))

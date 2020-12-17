@@ -24,6 +24,19 @@ Install R/qtl2fst from [CRAN](https://cran.r-project.org):
 
 ---
 
+### Vignette
+
+View the [qtl2fst user
+guide](https://kbroman.org/qtl2/assets/vignettes/qtl2fst.html),
+available [online](https://kbroman.org/qtl2/assets/vignettes/qtl2fst.html)
+and also within R:
+
+    vignette("qtl2fst", package="qtl2fst")
+
+
+
+---
+
 #### License
 
 Licensed under [GPL-3](https://www.r-project.org/Licenses/GPL-3).
