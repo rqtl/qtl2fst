@@ -1,4 +1,4 @@
-## qtl2fst 0.23-3 (2020-12-18)
+## qtl2fst 0.24 (2021-04-28)
 
 ### Minor changes
 
@@ -9,6 +9,8 @@
   `qtl2::calc_entropy()`, `qtl2::calc_geno_freq()`, and `qtl2::compare_genoprob()`.
   These tests fail without qtl2 >= 0.24, so added that in Imports in
   the description file.
+
+- Removed `LazyData` field from DESCRIPTION file
 
 
 ## qtl2fst 0.22-7 (2020-07-24)
