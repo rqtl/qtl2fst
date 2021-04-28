@@ -1,3 +1,10 @@
+## qtl2fst 0.25-1 (2021-04-28)
+
+### Minor changes
+
+- Fix some URLs in Readme, News, and vignette.
+
+
 ## qtl2fst 0.24 (2021-04-28)
 
 ### Minor changes
@@ -91,7 +98,7 @@
 
 ## qtl2fst 0.1-3 (2018-03-13)
 
-- New package for storing [R/qtl2](https://kbroman.org/qtl2) genotype
+- New package for storing [R/qtl2](https://kbroman.org/qtl2/) genotype
   probabilities in files using the [fst
   package](https://www.fstpackage.org), for fast access with reduced
   memory usage.

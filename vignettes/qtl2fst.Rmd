@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE, fig.width = 7, fig.height = 5)
 ```
 
 Memory usage can be a big obstacle in the use of
-[R/qtl2](https://kbroman.org/qtl2), particularly regarding the QTL
+[R/qtl2](https://kbroman.org/qtl2/), particularly regarding the QTL
 genotype probabilities calculated by `calc_genoprob()`. For dense
 markers in multi-parent populations, these can use gigabytes of RAM.
 
@@ -32,7 +32,7 @@ In this vignette, we'll give a quick illustration of the
 [R/qtl2fst](https://github.com/rqtl/qtl2fst) package using the
 [iron
 dataset](https://kbroman.org/qtl2/pages/sampledata.html#f2-intercross)
-included with [R/qtl2](https://kbroman.org/qtl2).
+included with [R/qtl2](https://kbroman.org/qtl2/).
 We'll first load the data.
 
 ```{r, load_iron_data}
