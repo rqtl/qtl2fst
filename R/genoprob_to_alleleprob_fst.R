@@ -50,6 +50,10 @@
 genoprob_to_alleleprob_fst <-
 function(probs, fbase, fdir=".", quiet=TRUE, cores=1, compress=0, overwrite=FALSE)
 {
+    if(!inherits(probs, "calc_genoprob")) {
+        stop('Input should have class "calc_genoprob".')
+    }
+
     if(is.null(fbase) || missing(fbase)) stop("fbase must be provided")
 
     cores <- setup_cluster(cores)

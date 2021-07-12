@@ -8,6 +8,9 @@
 
 - Fix some URLs in Readme, News, and vignette.
 
+- Have `fst_genoprob()` and `genoprob_to_alleleprob_fst()` check that
+  input is of class `"calc_genoprob"`.
+
 
 ## qtl2fst 0.24 (2021-04-28)
 

@@ -57,6 +57,10 @@
 fst_genoprob <-
     function(genoprob, fbase, fdir=".", compress=0, verbose=TRUE, overwrite=FALSE, quiet=!verbose)
 {
+    if(!inherits(genoprob, "calc_genoprob")) {
+        stop('input should have class "calc_genoprob".')
+    }
+
     if(!missing(verbose)) {
         warning('The verbose argument is deprecated and will be removed; use "quiet" instead.')
     }
