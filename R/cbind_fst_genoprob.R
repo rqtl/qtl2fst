@@ -65,8 +65,10 @@ bind_fst <-
     result <- unclass(result)
     if(is.null(fdir))
         fdir <- dirname(result$fst)
-    if(!dir.exists(fdir))
-        stop("directory", fdir, "does not exist")
+    if(!dir.exists(fdir)) {
+        message("creating directory ", fdir)
+        dir.create(fdir, recursive=TRUE)
+    }
 
     check_fn(args)
 

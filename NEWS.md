@@ -1,6 +1,10 @@
-## qtl2fst 0.25-1 (2021-04-28)
+## qtl2fst 0.25-1 (2021-07-12)
 
 ### Minor changes
+
+- If needed directory doesn't exist, create it rather than stopping
+  with an error (`fst_genoprob()` and `bind_fst()` and functions that
+  call them). Fixes [Issue #17](https://github.com/rqtl/qtl2fst/issues/17).
 
 - Fix some URLs in Readme, News, and vignette.
 

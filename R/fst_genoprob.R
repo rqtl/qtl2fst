@@ -90,7 +90,9 @@ fst_genoprob <-
 
     # Make sure directory exists
     if(!dir.exists(dirname(result$fst))) {
-        stop("directory ", dirname(result$fst), " does not exist")
+        newdir <- dirname(result$fst)
+        message("creating directory ", newdir)
+        dir.create(newdir, recursive=TRUE)
     }
 
     # Turn list of 3D arrays into table
