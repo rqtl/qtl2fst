@@ -1,3 +1,10 @@
+## qtl2fst 0.27-1 (2024-07-15)
+
+### Minor changes
+
+- Fixed link in documention.
+
+
 ## qtl2fst 0.26 (2021-10-07)
 
 ### Minor changes
