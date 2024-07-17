@@ -16,7 +16,7 @@ genoprob_to_alleleprob_fst(
 }
 \arguments{
 \item{probs}{Genotype probabilities, as calculated from
-\code{\link[=calc_genoprob]{calc_genoprob()}}.}
+\code{\link[qtl2:calc_genoprob]{qtl2::calc_genoprob()}}.}
 
 \item{fbase}{Base of filename for fst database.}
 
@@ -39,7 +39,7 @@ collapsed to alleles rather than genotypes.
 }
 \description{
 Reduce genotype probabilities (as calculated by
-\code{\link[=calc_genoprob]{calc_genoprob()}}) to allele probabilities, writing them to an fst database.
+\code{\link[qtl2:calc_genoprob]{qtl2::calc_genoprob()}}) to allele probabilities, writing them to an fst database.
 }
 \details{
 This is like calling \code{qtl2::genoprob_to_alleleprob()} and then

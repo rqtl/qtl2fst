@@ -2,10 +2,10 @@
 #' Convert genotype probabilities to allele probabilities and write to fst database
 #'
 #' Reduce genotype probabilities (as calculated by
-#' [calc_genoprob()]) to allele probabilities, writing them to an fst database.
+#' [qtl2::calc_genoprob()]) to allele probabilities, writing them to an fst database.
 #'
 #' @param probs Genotype probabilities, as calculated from
-#' [calc_genoprob()].
+#' [qtl2::calc_genoprob()].
 #' @param fbase Base of filename for fst database.
 #' @param fdir Directory for fst database.
 #' @param quiet IF `FALSE`, print progress messages.
