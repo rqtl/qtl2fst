@@ -26,9 +26,9 @@ See \code{\link[=fst_genoprob]{fst_genoprob()}} for details on the object.
 }
 \section{Functions}{
 \itemize{
-\item \code{fst_genoprob_restore}: Deprecated version (to be removed).
-}}
+\item \code{fst_genoprob_restore()}: Deprecated version (to be removed).
 
+}}
 \examples{
 library(qtl2)
 grav2 <- read_cross2(system.file("extdata", "grav2.zip", package="qtl2"))

@@ -1,3 +1,10 @@
+## qtl2fst 0.30 (2024-11-23)
+
+### Bug fixes
+
+- Fix problem in `replace_path()` example on Windows.
+
+
 ## qtl2fst 0.28 (2024-07-16)
 
 ### Minor changes

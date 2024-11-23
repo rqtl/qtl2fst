@@ -62,9 +62,9 @@ the usual access to elements of the object invoke \code{\link[=subset.fst_genopr
 }
 \section{Functions}{
 \itemize{
-\item \code{fst_genoprob}: Deprecated version (to be deleted)
-}}
+\item \code{fst_genoprob()}: Deprecated version (to be deleted)
 
+}}
 \examples{
 library(qtl2)
 grav2 <- read_cross2(system.file("extdata", "grav2.zip", package="qtl2"))

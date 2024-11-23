@@ -57,7 +57,7 @@ fst_path <-
 #' }
 #'
 #' # revise the path in fprobs
-#' new_path <- sub(dir, new_dir, fst_path(fprobs))
+#' new_path <- sub(dir, new_dir, fst_path(fprobs), fixed=TRUE)
 #' fprobs <- replace_path(fprobs, new_path)
 
 #' @export
