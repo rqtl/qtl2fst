@@ -57,6 +57,6 @@ vignette("qtl2fst", package="qtl2fst")
 
 ---
 
-#### License
+### License
 
 Licensed under [GPL-3](https://www.r-project.org/Licenses/GPL-3).
