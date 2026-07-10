@@ -1,3 +1,12 @@
+## qtl2fst 0.31-1 (2026-07-10)
+
+### Minor changes
+
+- For parallel computing, use of `cores=0` argument now results in all
+  but one core (`parallel::detectCores()-1`) rather than **all**
+  cores.
+
+
 ## qtl2fst 0.30 (2024-11-23)
 
 ### Bug fixes
